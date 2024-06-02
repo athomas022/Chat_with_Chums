@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  created_by: MyString
+  time_stamp: 2024-06-01 12:18:55
+  chat_rooms: MyString
+
+two:
+  description: MyText
+  created_by: MyString
+  time_stamp: 2024-06-01 12:18:55
+  chat_rooms: MyString

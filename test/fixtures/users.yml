@@ -1,0 +1,61 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  string: MyString
+  password: MyString
+  integer: MyString
+  name: MyString
+  string: MyString
+  age: MyString
+  integer: MyString
+  picture: MyString
+  binary: MyString
+  zipcode: MyString
+  integer: MyString
+  personality_type: MyString
+  string: MyString
+  interests: MyString
+  string: MyString
+  is_verified: MyString
+  boolean: MyString
+  chat_groups: MyString
+  string: MyString
+  user_messages: MyString
+  string: MyString
+  user_friends: MyString
+  strings: MyString
+  is_online: MyString
+  boolean: MyString
+  bio: MyString
+  text: MyString
+
+two:
+  username: MyString
+  string: MyString
+  password: MyString
+  integer: MyString
+  name: MyString
+  string: MyString
+  age: MyString
+  integer: MyString
+  picture: MyString
+  binary: MyString
+  zipcode: MyString
+  integer: MyString
+  personality_type: MyString
+  string: MyString
+  interests: MyString
+  string: MyString
+  is_verified: MyString
+  boolean: MyString
+  chat_groups: MyString
+  string: MyString
+  user_messages: MyString
+  string: MyString
+  user_friends: MyString
+  strings: MyString
+  is_online: MyString
+  boolean: MyString
+  bio: MyString
+  text: MyString
