@@ -1,4 +1,6 @@
 class User < ApplicationRecord
-    has_many :chat_rooms
-    has_many :messages
+    has_many :participants
+    has_many :chat_rooms, through: :participants
+    has_many :create_chat_rooms, class_name: 'ChatRoom', foreign_key: 'create_by'
+    
 end
