@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :users, only: [:index, :show, :create, :update, :destroy] do
+  end
+  resources :sessions, only: [:create, :destroy] do
+  end
+  resources :chat_rooms, only: [:index, :create, :show, :create, :update, :destroy] do
+  end
+  resources :messages, only: [:index, :show, :create, :update, :destroy] do
+  end
   # get 'welcome/index'
   root 'welcome#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
