@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create, :destroy] do
   end
   resources :chat_rooms, only: [:index, :create, :show, :create, :update, :destroy] do
-  end
-  resources :messages, only: [:index, :show, :create, :update, :destroy] do
+   resources :messages, only: [:index, :show, :create, :update, :destroy]
   end
   # get 'welcome/index'
   root 'welcome#index'
