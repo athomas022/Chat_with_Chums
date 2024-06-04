@@ -9,9 +9,9 @@ class MessagesController < ApplicationController
 
   def show
     @message = ChatRoom.where(chat_room_id: params[:chat_room_id]).find(params[:id])
-    render json: @message
-  rescue StandardError => e
-    Logger.warn("Error fetching messages: #{e.message}")
+      render json: @message
+    rescue StandardError => e
+      Logger.warn("Error fetching messages: #{e.message}")
   end
 
   # def new
@@ -27,11 +27,11 @@ class MessagesController < ApplicationController
     if @message.save
       render json: @message
     else 
-      flash.now[:error] = "Could not save message"
+      flash.now[:error] = "Could not create message"
       render action: "new" 
     end
     rescue StandardError => e
-    Logger.warn("Error creating message: #{e.message}")
+      Logger.warn("Error creating message: #{e.message}")
   end
 
   def update
@@ -43,7 +43,7 @@ class MessagesController < ApplicationController
      render action: "edit"
     end
     rescue StandardError => e
-    Logger.warn("Error updating data: #{e.message}")
+      Logger.warn("Error updating data: #{e.message}")
   end
 
   def destroy
