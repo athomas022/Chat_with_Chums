@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def delete
     @user = User.find(params[:id])
-    if @user.destroy(user_params)
+    if @user.destroy
       flash[:notification] = "Successfully deleted the user"
       redirect_to root_path
     else 

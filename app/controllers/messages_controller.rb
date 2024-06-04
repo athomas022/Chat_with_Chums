@@ -35,8 +35,26 @@ class MessagesController < ApplicationController
   end
 
   def update
+    @message = Message.find(params[:id])
+    if @message.update(message_params)
+      render json: @message
+    else 
+     flash.now[:error] = "Could not update the message"
+     render action: "edit"
+    end
+    rescue StandardError => e
+    Logger.warn("Error updating data: #{e.message}")
   end
 
   def destroy
+    @message = Message.find(params[:id])
+    if @message.destroy
+      flash[:notification] = "Successfully deleted the message"
+      redirect_to ChatRoom.find(params[:chat_room_id])
+    else 
+      flash.now[:error] = "Could not delete message"
+      redirect_back
+    end
+  rescue StandardError => e
+    Logger.warn("Error updating data: #{e.message}")  
   end
-end
