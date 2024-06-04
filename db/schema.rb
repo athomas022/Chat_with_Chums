@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_004342) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_041052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,13 +18,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_004342) do
     t.string "name"
     t.date "created_on"
     t.string "personality_types"
-    t.string "chat_messages"
-    t.string "chat_users"
     t.boolean "is_public"
     t.text "announcements"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "admin_id"
+    t.integer "messages_id", default: [], array: true
+    t.integer "users_id", default: [], array: true
   end
 
   create_table "messages", force: :cascade do |t|
@@ -55,13 +55,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_004342) do
     t.string "personality_type"
     t.string "interests"
     t.boolean "is_verified"
-    t.string "chat_groups"
-    t.string "user_messages"
-    t.string "user_friends"
     t.boolean "is_online"
     t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_messages_id", default: [], array: true
+    t.integer "chat_rooms_id", default: [], array: true
+    t.integer "friends_id", default: [], array: true
   end
 
   add_foreign_key "participants", "chat_rooms"
