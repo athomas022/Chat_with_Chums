@@ -1,4 +1,21 @@
 class UsersController < ApplicationController
+  devise :database_authenticatable,
+         :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+
+   has_secure_password
+   
+   def update
+    @user = User.find(params[:id])
+    if @user.valid?
+      render json: @user, status: :ok
+   else
+      render json: { error: 'Failed to update user', errors: @user.errors.full_messages }, 
+         status: :unprocessable_entity
+   end
+    rescue StandardError => e
+    Logger.warn("Error updating data: #{e.message}")
+  end
+       
   def show
     @user = User.find(params[:id])
     render json: @user
@@ -9,48 +26,41 @@ class UsersController < ApplicationController
   # end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(sign_up_params)
       if @user.save
-        render json: @user
+        token = @user.generate_jwt
+        render json: {user: @user, token: token}, status: :created
       else 
-        flash.now[:error] = "Could not save user"
+        render json: { error: "Could not create a user", errors: @user.errors.full_messages }, status: :unprocessable_entity
         render action: "new"  
       end
     rescue StandardError => e
-    Logger.warn("Error fetching data: #{e.message}")
+    Logger.warn("Error creating data: #{e.message}")
   end
 
-  def update
-    @user = User.find(params[:id])
-      if @user.update(user_params)
-        render json: @user
-      else 
-        flash.now[:error] = "Could not update user"
-        render action: "edit"  
-      end
-    rescue StandardError => e
-    Logger.warn("Error updating data: #{e.message}")
-  end
-
+ 
   # def edit
   # end
 
-  def delete
+  def destroy
     @user = User.find(params[:id])
     if @user.destroy
-      flash[:notification] = "Successfully deleted the user"
-      redirect_to root_path
+      render json: { message: "Successfully deleted the user"}, status: :ok
     else 
-      flash.now[:error] = "Could not delete user"
-      redirect_back(fallback_location: root_path)
+      render json: { error: "Could not delete user"}, status: :unprocessable_entity
+      #no redirects for the API only rendering JSON
     end
     rescue StandardError => e
-    Logger.warn("Error updating data: #{e.message}")
+    Logger.warn("Error deleting data: #{e.message}")
   end
 
   end
 
   private
-  params.require(:user).permit(:username, :name, :age, :picture, :zipcode, :personality_type, :interests, :bio)
-
+  def user_params
+    params.require(:user).permit(:username, :name, :age, :picture, :zipcode, :personality_type, :interests, :bio)
+  end
+  def sign_up_params
+    params.require(:user).permit(:email, :password)
+  end
 end

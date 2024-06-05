@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,
+  controllers: {
+    sessions: :sessions
+  }
+  
   resources :users, only: [:index, :show, :create, :update, :destroy] do
   end
   resources :sessions, only: [:create, :destroy] do

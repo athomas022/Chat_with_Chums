@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Registrations::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+  # nbefore_actio :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
   # def new
