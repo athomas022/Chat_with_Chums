@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
-  devise_for :users,
-  controllers: {
-    sessions: :sessions
-  }
+  devise_for :users, controllers: {
+    registrations: 'registrations',
+    sessions: 'sessions'
+  }, path: ''
   
-  resources :users, only: [:index, :show, :create, :update, :destroy] do
+  get '/about_us', to: 'about_us#index'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+  get '/signup', to: 'registrations#new'
+  # get '/login_or_signup', to: 'sessions#login_or_signup', as: login_or_signup
+
+  resources :users, only: [:index, :show, :create, :edit, :update, :destroy] do
   end
-  resources :sessions, only: [:create, :destroy] do
-  end
-  resources :chat_rooms, only: [:index, :create, :show, :create, :update, :destroy] do
-   resources :messages, only: [:index, :show, :create, :update, :destroy]
+  resources :chat_rooms, only: [:index, :new, :show, :create, :update, :destroy] do
+   resources :messages, only: [:index, :show, :new, :create, :update, :destroy]
   end
   # get 'welcome/index'
   root 'welcome#index'
