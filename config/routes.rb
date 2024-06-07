@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   mount ActionCable.server => "/cable"
-  
+
   devise_for :users, controllers: {
     registrations: 'registrations',
     sessions: 'sessions'
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/signup', to: 'registrations#new'
+  post '/start_chat_with/:receipient_id', to: 'direct_messages#create'
   # get '/login_or_signup', to: 'sessions#login_or_signup', as: login_or_signup
 
   resources :users, only: [:index, :show, :create, :edit, :update, :destroy] do
