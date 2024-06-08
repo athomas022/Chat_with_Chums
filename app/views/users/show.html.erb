@@ -28,7 +28,9 @@
     <li>
 <% end %>
 </h3>
-<button>Edit</button>
-<button>Delete</button>
+<% if user == current_user %>
+<button><%= link_to 'Edit', edit_user_path(user) %></button>
+<button><%= link_to: 'Delete', user_path(user), method: :delete, class: 'btn btn-danger',  data: { confirm: 'Are you sure?' } %></button>
+<% end %>
 </div>
 </div>

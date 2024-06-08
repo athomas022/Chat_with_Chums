@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       #no redirects for the API only rendering JSON
     end
     rescue StandardError => e
-    Logger.warn("Error deleting data: #{e.message}")
+    Rails.logger.warn("Error deleting data: #{e.message}")
   end
 
   end
