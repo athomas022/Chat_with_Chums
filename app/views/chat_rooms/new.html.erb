@@ -1,2 +1,47 @@
-<h1>ChatRooms#new</h1>
-<p>Find me in app/views/chat_rooms/new.html.erb</p>
+<body>
+<%= render 'partials/navbar' %>
+<h1>Create a chat room</h1>
+<%= bootstrap_form_with model: @chat_rooms, url: chat_room_path, method: :post, local: true do |f| %>
+<div class= 'container'>
+<%= f.hidden_field :created_on, value: Date.now %>
+<%= f.hidden_field :admin_id, value: current_user.id %>
+
+
+<div class='form-group'>
+<%= f.label :name, 'Name' %>
+<%= f.text_field :name, class: 'form-control', placeholder: 'Enter group name here' %>
+</div>
+<div class='form-group'>
+<%= f.label :personality_types, 'Personality types' %>
+<%= f.select :personality_types, options_for_select([
+    ["ISTJ - The Inspector", "ISTJ"],
+    ["ISFJ - The Protector", "ISFJ"],
+    ["INFJ - The Advocate", "INFJ"],
+    ["INTJ - The Architect", "INTJ"],
+    ["ISTP - The Craftsman", "ISTP"],
+    ["ISFP - The Composer", "ISFP"],
+    ["INFP - The Healer", "INFP"],
+    ["INTP - The Thinker", "INTP"],
+    ["ESTP - The Dynamo", "ESTP"],
+    ["ESFP - The Performer", "ESFP"],
+    ["ENFP - The Champion", "ENFP"],
+    ["ENTP - The Visionary", "ENTP"],
+    ["ESTJ - The Supervisor", "ESTJ"],
+    ["ESFJ - The Provider", "ESFJ"],
+    ["ENFJ - The Teacher", "ENFJ"],
+    ["ENTJ - The Commander", "ENTJ"]
+  ]), {}, class: 'form-select', 'aria-label': 'Select Personalities' %>
+</div>
+<div class='form-group'>
+<%= f.label :is_public, 'Make the group public?' %>
+<%= f.check_box :is_public, class: 'form-check-input' %>
+</div>
+
+<div class='form-group'>
+<%= f.label :announcements, 'Announcements' %>
+<%= f.text_area :announcements, class: 'form-control' %>
+</div>
+
+</div>
+<%= render 'partials/footer' %>
+</body>

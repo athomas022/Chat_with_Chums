@@ -10,8 +10,9 @@ class ChatRoomsController < ApplicationController
       Logger.warn("Error fetching messages: #{e.message}")
   end
 
-  # def new
-  # end
+  def new
+    render :new
+  end
 
   # def edit
   # end
