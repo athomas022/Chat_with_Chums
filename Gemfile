@@ -74,3 +74,5 @@ end
 
 gem 'bootstrap'
 
+gem 'sassc-rails'
+

@@ -1,6 +1,14 @@
 <div class='user-sidebar'>
 <p><%= user.name %></p>
-<%= image_tag('image.jpg') %>
-<i class="bi bi-person-circle"></i>
-<i class="bi bi-patch-check-fill"></i>
-<i class="bi bi-circle-fill"></i>
+<% if user.picture? %>
+    <%= image_tag(@user.picture) %>
+<% else %>
+    <i class="bi bi-person-circle"></i>
+<% end %>    
+<% if user.is_verified %>
+   <i class="bi bi-patch-check-fill"></i>
+<% end %>
+<% if user.is_online %>
+    <i class="bi bi-circle-fill"></i>
+<% end %>
+</div>
