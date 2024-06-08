@@ -1,2 +1,34 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<body>
+<%= render 'partials/navbar' %>
+<div class='container'>
+<div class= 'profile'
+<h1>My Profile</h1>
+<div class = 'profile-picture'
+<span class='user-icon', style='color: <%= '##{rand(0xffffff).to_s(16)}' %>;'>
+<i class="bi bi-person-rolodex"></i>
+</span>
+<% if user.is_verified %>
+   <i class="bi bi-patch-check-fill"></i>
+<% end %>
+</div>
+<h3>Personality: <%=user.personality_type ></h3>
+<h3>Interests: <%=user.personality_type ></h3>
+<h3>Personality: <%=user.interests ></h3>
+<h3>My Chat Rooms:</h3>
+<% @user.chat_rooms.each do |chat_room| %>
+    <li>
+    <%= link_to chat_room.name, chat_room %>
+    <li>
+<% end %>
+</h3>
+<h3>My Friends: 
+<% @user.friends.each do |friend| %>
+    <li>
+    <%= link_to friends.username, user_path(friend) %>
+    <li>
+<% end %>
+</h3>
+<button>Edit</button>
+<button>Delete</button>
+</div>
+</div>

@@ -4,4 +4,9 @@ class User < ApplicationRecord
     has_many :chat_rooms, through: :participants
     has_many :create_chat_rooms, class_name: 'ChatRoom', foreign_key: 'admin_id'
     
+
+    def friends
+        User.where(id: friends_id)
+      end
+
 end

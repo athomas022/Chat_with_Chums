@@ -17,9 +17,9 @@
     </span>
     <h2><%= chat_room.announcements</h2>
     <h3>User count: <%= chat_room.users_id.size %></h3>
+    <button><%= link_to 'View', chat_room %></button>
     <div>
 <% end %>
 </div>
-
 <%= render 'partials/footer' %>
 </body>
