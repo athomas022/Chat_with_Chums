@@ -1,0 +1,19 @@
+<body>
+  <%= render 'partials/navbar' %>
+<h2>Log in</h2>
+<%= bootstrap_form_with model: @user, url: login_path, method: :post, local: true do |f| %>
+  <div class='container'>
+
+  <div class='form-group'>
+  <%= f.label :username, 'Username' %>
+  <%= f.text_field :username, class: 'form-control', placeholder: 'Your username here' %>
+  </div>
+  <div class='form-group'>
+          <%= f.label :password, 'Password' %>
+          <%= f.password_field :password, class: 'form-control', autocomplete: "username" %>
+  </div>
+
+  <%= f.submit "Create a user and login in", class: "btn btn-primary" %>
+</div>
+<%= render 'partials/footer' %>
+</body>
