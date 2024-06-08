@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
 
   devise_for :users, controllers: {
-    registrations: 'registrations/registrations',
     sessions: 'sessions'
   }, path: ''
   
@@ -11,7 +10,7 @@ Rails.application.routes.draw do
   get  '/test', to: 'test#index', as: 'test'
   post '/login', to: 'sessions#create', as: 'login'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
-  get '/signup', to: 'registrations#new', as: 'new_user_registration_path'
+  get '/signup', to: 'users#create', as: 'new_user_path'
   post '/start_chat_with/:receipient_id', to: 'direct_messages#create'
   # get '/login_or_signup', to: 'sessions#login_or_signup', as: login_or_signup
 

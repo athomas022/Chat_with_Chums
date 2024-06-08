@@ -29,10 +29,15 @@ class UsersController < ApplicationController
     @user = User.new(sign_up_params)
       if @user.save
         token = @user.generate_jwt
-        render json: {user: @user, token: token}, status: :created
+        respond_to do |format|
+          format.html { redirect_to new_user_path }
+          format.json { render json: { user: @user, token: token }, status: :created }
+        end
       else 
-        render json: { error: "Could not create a user", errors: @user.errors.full_messages }, status: :unprocessable_entity
-        render action: "new"  
+        respond_to do |format|
+          format.html { render :new }
+          format.json { render json: { error: "Could not create a user", errors: @user.errors.full_messages }, status: :unprocessable_entity }
+        end
       end
     rescue StandardError => e
     Logger.warn("Error creating data: #{e.message}")

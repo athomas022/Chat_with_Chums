@@ -1,2 +1,42 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<body>
+  <%= render 'partials/navbar' %>
+<h1>Sign Up form</h1>
+<%= bootstrap_form_with model: @user, url: user_path(@user), method: :post, local: true do |f| %>
+<div class='container'>
+<div class='form-group'>
+<%= f.label :name, 'Name' %>
+<%= f.text_field :name, class: 'form-control', placeholder: 'Your name here' %>
+</div>
+<div class='form-group'>
+<%= f.label :username, 'Username' %>
+<%= f.text_field :username, class: 'form-control', placeholder: 'Your username here' %>
+</div>
+<div class='form-group'>
+        <%= f.label :password, 'Password' %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+<div class='form-group'>
+        <%= f.label :personality_type, 'Personality type' %>
+        <%= f.select :personality_type, options_for_select([
+            ["ISTJ - The Inspector", "ISTJ"],
+            ["ISFJ - The Protector", "ISFJ"],
+            ["INFJ - The Advocate", "INFJ"],
+            ["INTJ - The Architect", "INTJ"],
+            ["ISTP - The Craftsman", "ISTP"],
+            ["ISFP - The Composer", "ISFP"],
+            ["INFP - The Healer", "INFP"],
+            ["INTP - The Thinker", "INTP"],
+            ["ESTP - The Dynamo", "ESTP"],
+            ["ESFP - The Performer", "ESFP"],
+            ["ENFP - The Champion", "ENFP"],
+            ["ENTP - The Visionary", "ENTP"],
+            ["ESTJ - The Supervisor", "ESTJ"],
+            ["ESFJ - The Provider", "ESFJ"],
+            ["ENFJ - The Teacher", "ENFJ"],
+            ["ENTJ - The Commander", "ENTJ"]
+          ]), {}, class: 'form-select', 'aria-label': 'Select Personality' %>
+      </div>
+      <%= f.submit "Create a user and login in", class: "btn btn-primary", link_to: welcome#index %>
+    </div>
+  <%= render 'partials/footer' %>
+</body>
