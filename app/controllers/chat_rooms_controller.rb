@@ -1,6 +1,6 @@
 class ChatRoomsController < ApplicationController
   def index
-    @chat_rooms = ChatRoom.all
+    @chat_rooms = ChatRoom.search_by_keyword(params[:keyword])
   end
 
   def show

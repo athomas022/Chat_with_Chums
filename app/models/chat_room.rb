@@ -19,4 +19,14 @@ class ChatRoom < ApplicationRecord
                     .having(count(chat_room_id)=2)
                     .first
     end
+    
+    def self.search_by_keyword(keyword)
+       if keyword.present?   
+        ChatRoom.where("name LIKE ?", "%#{keyword}%")
+       else
+        ChatRoom.all
+       end
+    end
+
+
 end
