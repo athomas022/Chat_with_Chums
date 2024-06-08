@@ -1,2 +1,60 @@
-<h1>ChatRooms#update</h1>
-<p>Find me in app/views/chat_rooms/update.html.erb</p>
+<body>
+<%= render 'partials/navbar' %>
+<h1>Edit the chat room</h1>
+<%= bootstrap_form_with model: @chat_room, url: chat_room_path, method: :put, local: true do |f| %>
+<div class= 'container'>
+
+<div class='form-group'>
+<%= f.label :name, 'Name' %>
+<%= f.text_field :name, class: 'form-control', value: @chat_room.name %>
+</div>
+
+<div class='form-group'>
+<%= f.label :personality_types, 'Personality types' %>
+<%= f.select :personality_types, options_for_select([
+    ["ISTJ - The Inspector", "ISTJ"],
+    ["ISFJ - The Protector", "ISFJ"],
+    ["INFJ - The Advocate", "INFJ"],
+    ["INTJ - The Architect", "INTJ"],
+    ["ISTP - The Craftsman", "ISTP"],
+    ["ISFP - The Composer", "ISFP"],
+    ["INFP - The Healer", "INFP"],
+    ["INTP - The Thinker", "INTP"],
+    ["ESTP - The Dynamo", "ESTP"],
+    ["ESFP - The Performer", "ESFP"],
+    ["ENFP - The Champion", "ENFP"],
+    ["ENTP - The Visionary", "ENTP"],
+    ["ESTJ - The Supervisor", "ESTJ"],
+    ["ESFJ - The Provider", "ESFJ"],
+    ["ENFJ - The Teacher", "ENFJ"],
+    ["ENTJ - The Commander", "ENTJ"]
+  ]), {}, class: 'form-select', 'aria-label': 'Select Personalities', value: @chat_room.personality_types %>
+</div>
+
+<div class='form-group'>
+<%= f.label :is_public, 'Change Public Status' %>
+<%= f.check_box :is_public, class: 'form-check-input', value: @chat_room.is_public %>
+</div>
+
+<div class='form-group'>
+<%= f.label :announcements, 'Announcements' %>
+<%= f.text_area :announcements, class: 'form-control', value: @chat_room.announcements %>
+</div>
+
+<div class='form-group'>
+  <%= f.label :users_id, 'Users' %>
+  <ul>
+    <% @chat_room.users.each do |user| %>
+      <li>
+        <%= user.username %>
+        <%= button_to 'Delete', chat_room_path(user), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<%= f.submit "Update Chat room", class: "btn btn-primary" %>
+<button><%= link_to: 'Delete', chat_room_path(chat_room), method: :delete, class: 'btn btn-danger',  data: { confirm: 'Are you sure?' } %></button>
+</div>
+<%= render 'partials/footer' %>
+</body>
