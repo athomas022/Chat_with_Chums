@@ -1,7 +1,6 @@
 <body>
 <%= render 'partials/navbar' %>
 <h1>Chat Rooms</h1>
-
 <div class="searchbar">
   <%= form_tag(chat_rooms_path, method: :get) do |form| %>
     <%= text_field_tag(:keyword, params[:keyword], placeholder: "Search for keyword") %>
@@ -9,3 +8,18 @@
   <% end %>
   <%= link_to "Clear search", chat_rooms_path %>
 </div>
+<div class ='chat-room-container'>
+<% @chat_rooms.each do |chat_room| %>
+    <div>
+    <h1>Name: <%= chat_room.name %>
+    <span class ='chat-icon', style='color: <%= '##{rand(0xffffff).to_s(16)}' %>;'>
+    <i class='bi bi-chat-left-fill'></i>
+    </span>
+    <h2><%= chat_room.announcements</h2>
+    <h3>User count: <%= chat_room.users_id.size %></h3>
+    <div>
+<% end %>
+</div>
+
+<%= render 'partials/footer' %>
+</body>
