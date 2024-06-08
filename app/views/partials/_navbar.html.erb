@@ -1,18 +1,17 @@
 <header>
-<head>
-    <title>Chat</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= stylesheet_link_tag "application"%>
-  </head>
 <div class = 'container'>
 <h1>Chat With Chums</h1>
 <nav>
 <ul>
 <li><%= link_to 'About Us', about_us_path %></li>
-<%= content_tag :li, "Hello there", style: "color:red; font-size: 16px" %>
 <li><%= link_to 'Take the Test', test_path %></li>
 <li><%= link_to 'Get Chatting', chat_rooms_path %></li>
-<li><%= link_to 'Sign up', new_user_registration_path %></li>
+<% if user_signed_in? %>
+    <li><%= link_to 'My Profile', user_path(current_user) %></li>
+    <li><%= link_to 'Logout', logout_path %></li>
+<% else %>
+    <li><%= link_to 'Login', login_path %></li>  
+<% end %>
 </ul>
 </nav>
 </header>

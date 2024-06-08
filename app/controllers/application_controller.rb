@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
     end
     
     def current_user
-        @current_user ||= super || User.find(@current_user_id)
+        @current_user ||= super || User.find(@current_user_id) if @current_user_id.present?
     end
 
 def process_token
