@@ -72,7 +72,7 @@ personality_types.each do |personality|
 end
 
 User.destroy_all
-10.times do
+25.times do
   personality = personality_types.sample[:name]
   user = User.create(
     username: Faker::Internet.username,
@@ -97,7 +97,7 @@ end
 ChatRoom.destroy_all
 if defined?(personality_types) && personality_types.any?
   # Seed 5 new chat rooms
-  5.times do
+  10.times do
     personality = personality_types.sample[:name]
     admin_id = User.pluck(:id).sample
     chat_room = ChatRoom.create(
@@ -118,7 +118,7 @@ end
 
 # Seed data for messages
 Message.destroy_all
-10.times do
+50.times do
   message = Message.create(
     body: Faker::Lorem.sentence,
     time_stamp: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now),
