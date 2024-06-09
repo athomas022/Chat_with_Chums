@@ -21,7 +21,7 @@ module ApplicationCable
       
         def decode_jwt(token)
           begin
-            JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256').first
+            JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, algorithm: 'HS256').first
           rescue JWT::DecodeError
             nil
           end

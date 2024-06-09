@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_09_043820) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_09_211034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,8 +69,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_043820) do
     t.integer "user_messages_id", default: [], array: true
     t.integer "chat_rooms_id", default: [], array: true
     t.integer "friends_id", default: [], array: true
-    t.string "password_digest"
     t.string "picture"
+    t.string "password"
+    t.string "password_digest"
   end
 
   add_foreign_key "participants", "chat_rooms"

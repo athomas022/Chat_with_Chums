@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
   private
 
   def generate_jwt(user)
-    JWT.encode({ id: user.id, exp: 60.days.from_now.to_i }, Rails.application.secrets.secret_key_base)
+    JWT.encode({ id: user.id, exp: 60.days.from_now.to_i }, ENV['DEVISE_JWT_SECRET_KEY'])
   end
 
   def sign_in_params
