@@ -7,7 +7,7 @@ after_create_commit {broadcast_message}
 private
 def broadcast_message
     username = user.name if user
-    ActionCable.server.broadcast("chat_room#{chat_room_id}"  , {
+    ActionCable.server.broadcast("chat_room_#{chat_room_id}"  , {
       id: id,
       body: body,
       user_id: user_id,
