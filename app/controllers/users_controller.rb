@@ -25,13 +25,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    Rails.logger.debug("User params: #{user_params.inspect}")
       if @user.save
         token = @user.generate_jwt
+        Rails.logger.debug("User saved successfully with ID: #{@user.id}")
         respond_to do |format|
           format.html { redirect_to new_user_path }
           format.json { render json: { user: @user, token: token }, status: :created }
         end
       else 
+        Rails.logger.debug("User save errors: #{@user.errors.full_messages}")
         respond_to do |format|
           format.html { render :new }
           format.json { render json: { error: "Could not create a user", errors: @user.errors.full_messages }, status: :unprocessable_entity }
@@ -59,7 +62,9 @@ class UsersController < ApplicationController
 
 
   private
-    def user_params
-      params.require(:user).permit(:username, :password, :name, :age, :picture, :zipcode, :personality_type, :interests, :bio)
-    end
+
+  def user_params
+    params.require(:user).permit(:username, :name, :personality_type,:password)
+  end
+
 end
