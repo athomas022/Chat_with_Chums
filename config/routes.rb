@@ -2,13 +2,11 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => "/cable"
 
-  devise_for :users, controllers: {
-    sessions: 'sessions'
-  }, path: ''
+  devise_for :users, skip; [:sessions]
   
   get '/about_us', to: 'about_us#index', as: 'about_us'
   get  '/test', to: 'test#index', as: 'test'
-  post '/login', to: 'sessions#create', as: 'login'
+  post '/login', to: 'devise/sessions#new'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
   get '/signup', to: 'users#new', as: 'new_user'
   post '/start_chat_with/:receipient_id', to: 'direct_messages#new'

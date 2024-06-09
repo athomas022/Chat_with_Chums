@@ -30,7 +30,7 @@ class UsersController < ApplicationController
         token = @user.generate_jwt
         Rails.logger.debug("User saved successfully with ID: #{@user.id}")
         respond_to do |format|
-          format.html { redirect_to new_user_path }
+          format.html { redirect_to root_path }
           format.json { render json: { user: @user, token: token }, status: :created }
         end
       else 
