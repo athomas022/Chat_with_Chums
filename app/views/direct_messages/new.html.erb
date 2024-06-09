@@ -1,0 +1,27 @@
+<body>
+<%= render 'partials/navbar' %>
+<%= render 'partials/sidebar', locals: { users: @chat_room.users }  %>
+<body>
+  <%= render 'partials/navbar' %>
+  <%= render 'partials/sidebar', locals: { users: @chat_room.users } %>
+  <h1>Welcome to <%= @chat_room.name %></h1>
+  <div class='container'>
+    <div class='chat'>
+      <% @chat_room.messages.each do |message_id| %>
+        <% message = Message.find(message_id) %>
+        <div class='messages'>
+          <%= render partial: 'message', locals: { message: message } %>
+        </div>
+      <% end %>
+    </div>
+    <div class='messages-form'>
+      <%= bootstrap_form_with model: [@chat_room, @chat_room.messages.new], method: :post, local: true do |f| %>
+        <div class='messages-input'>
+          <%= f.text_area :description, placeholder: 'Type your message here' %>
+        </div>
+        <%= f.submit "Send", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+  <%= render 'partials/footer' %>
+</body>

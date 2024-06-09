@@ -12,5 +12,6 @@
 <% if user.is_online %>
     <i class="bi bi-circle-fill"></i>
 <% end %>
+<button><%= link_to 'Start DM', start_chat_with_path(user_id), method: :post, class: 'btn btn-primary'%></button>
 <% end %>
 </div>
