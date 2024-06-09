@@ -1,12 +1,12 @@
 class MessagesController < ApplicationController
-  # def index
-  #   @chat_room = ChatRoom.find(params[:chat_room_id])
-  #   @message = @chat_room.messages
-  #   render json: @message
-  # rescue StandardError => e
-  #   Rails.logger.warn("Error fetching messages: #{e.message}")
-  #   head :internal_server_error
-  # end
+  def index
+    @chat_room = ChatRoom.find(params[:chat_room_id])
+    @message = @chat_room.messages
+    render json: @message
+  rescue StandardError => e
+    Rails.logger.warn("Error fetching messages: #{e.message}")
+    head :internal_server_error
+  end
 
   # def show
   #   @message = Message.where(chat_room_id: params[:chat_room_id]).find(params[:id])
@@ -25,18 +25,19 @@ class MessagesController < ApplicationController
   def create
     @chat_room = ChatRoom.find(params[:chat_room_id])
     @message = @chat_room.messages.new(message_params)
-    @message.user = current_user
-    @message.chat_groups = params[:chat_room_id]
+    @message.user_id = current_user.id
     if @message.save
       # render json: @message
       head :ok
     else 
+      Rails.logger.error(@message.errors.inspect)
       # flash.now[:error] = "Could not create message"
       # render action: "new" 
       head :unprocessable_entity
     end
-    # rescue StandardError => e
-    #   Logger.warn("Error creating message: #{e.message}")
+    rescue StandardError => e
+      Rails.logger.warn("Error creating message: #{e.message}")
+      head :internal_server_error
   end
 
   # def update
@@ -69,7 +70,7 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:content)
+    params.require(:message).permit(:body,:user_id, :chat_room_id)
   end
 
 end

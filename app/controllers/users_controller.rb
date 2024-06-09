@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
-  devise :database_authenticatable,
-         :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+  before_action :authenticate_user!, except: [:new, :create]
+  
 
-   has_secure_password
-   
    def update
     @user = User.find(params[:id])
     if @user.valid?
@@ -13,7 +11,7 @@ class UsersController < ApplicationController
          status: :unprocessable_entity
    end
     rescue StandardError => e
-    Logger.warn("Error updating data: #{e.message}")
+    Rails.logger.warn("Error updating data: #{e.message}")
   end
        
   def show
@@ -21,12 +19,12 @@ class UsersController < ApplicationController
     # render json: @user
   end
 
-  # def new
-  #   @user = User.new
-  # end
+  def new
+    @user = User.new
+  end
 
   def create
-    @user = User.new(sign_up_params)
+    @user = User.new(user_params)
       if @user.save
         token = @user.generate_jwt
         respond_to do |format|
@@ -40,12 +38,12 @@ class UsersController < ApplicationController
         end
       end
     rescue StandardError => e
-    Logger.warn("Error creating data: #{e.message}")
+    Rails.logger.warn("Error creating data: #{e.message}")
   end
 
  
-  # def edit
-  # end
+  def edit
+  end
 
   def destroy
     @user = User.find(params[:id])
@@ -59,13 +57,9 @@ class UsersController < ApplicationController
     Rails.logger.warn("Error deleting data: #{e.message}")
   end
 
-  end
 
   private
-  def user_params
-    params.require(:user).permit(:username, :name, :age, :picture, :zipcode, :personality_type, :interests, :bio)
-  end
-  def sign_up_params
-    params.require(:user).permit(:email, :password)
-  end
+    def user_params
+      params.require(:user).permit(:username, :password, :name, :age, :picture, :zipcode, :personality_type, :interests, :bio)
+    end
 end

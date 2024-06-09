@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get  '/test', to: 'test#index', as: 'test'
   post '/login', to: 'sessions#create', as: 'login'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
-  get '/signup', to: 'users#create', as: 'new_user_path'
+  get '/signup', to: 'users#new', as: 'new_user'
   post '/start_chat_with/:receipient_id', to: 'direct_messages#new'
 
   resources :users, only: [:index, :show, :create, :edit, :update, :destroy] do
