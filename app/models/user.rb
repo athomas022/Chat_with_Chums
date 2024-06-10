@@ -11,8 +11,9 @@ class User < ApplicationRecord
 
     has_secure_password  
     
-    def generate_jwt
-        JWT.encode({ id: self.id, exp: 60.days.from_now.to_i }, ENV['DEVISE_JWT_SECRET_KEY'])
+    def self.generate_jwt(username)
+        user = User.find_by(username: username)
+        JWT.encode({ id: user.id, exp: 60.days.from_now.to_i }, ENV['DEVISE_JWT_SECRET_KEY'])
     end
 
 end

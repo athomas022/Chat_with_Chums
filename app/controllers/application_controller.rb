@@ -15,17 +15,20 @@ class ApplicationController < ActionController::Base
     end
     
     def current_user
-        @current_user ||= super || User.find(@current_user_id) if @current_user_id.present?
+        @current_user ||= User.find(@current_user_id) if @current_user_id.present?
     end
 
-def process_token
-  if request.headers['Authorization'].present?
-    begin
-      jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1].remove('"'), ENV['DEVISE_JWT_SECRET_KEY']).first
-      @current_user_id = jwt_payload['id']
-    rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
-      head :unauthorized
+    private
+
+    def process_token
+      if session[:jwt_token].present?
+        begin
+          jwt_payload = JWT.decode(session[:jwt_token], ['DEVISE_JWT_SECRET_KEY']).first
+          @current_user_id = jwt_payload['id']
+        rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
+          session[:jwt_token] = nil
+          redirect_to new_user_path, alert: "Invalid or expired token"
+        end
+      end
     end
-  end
-end
 end
