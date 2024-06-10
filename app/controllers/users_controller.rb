@@ -4,8 +4,11 @@ class UsersController < ApplicationController
 
    def update
     @user = User.find(params[:id])
-    if @user.valid?
-      render json: @user, status: :ok
+    if @user.update(user_params)
+      respond_to do |format|
+        format.html { redirect_to user_path(@user) }
+        format.json { render json: { user: @user, token: token }, status: :ok}
+      end
    else
       render json: { error: 'Failed to update user', errors: @user.errors.full_messages }, 
          status: :unprocessable_entity
@@ -46,6 +49,7 @@ class UsersController < ApplicationController
 
  
   def edit
+    @user = User.find(params[:id])
   end
 
   def destroy
@@ -64,7 +68,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :personality_type,:password)
+    params.require(:user).permit(:name, :username, :password, :age, :zipcode, :personality_type, :interests, :is_verified, :bio)
   end
 
 end
