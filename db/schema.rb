@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_09_211034) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_10_223810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_211034) do
     t.integer "age"
     t.integer "zipcode"
     t.string "personality_type"
-    t.string "interests", default: [], array: true
+    t.string "interests", array: true
     t.boolean "is_verified"
     t.boolean "is_online"
     t.text "bio"

@@ -1,16 +1,16 @@
 <header>
-<div class = 'container'>
+<div class = 'navbar', style="background-color: #333; color: white; text-align: center; padding: 10px;">
 <h1>Chat With Chums</h1>
 <nav>
 <ul>
-<li><%= link_to 'About Us', about_us_path %></li>
-<li><%= link_to 'Take the Test', test_path %></li>
-<li><%= link_to 'Get Chatting', chat_rooms_path %></li>
+<li style="color: white;"><%= link_to 'About Us', about_us_path %></li>
+<li style="color: white;"><%= link_to 'Take the Test', test_path %></li>
+<li style="color: white;"><%= link_to 'Get Chatting', chat_rooms_path %></li>
 <% if user_signed_in? %>
-    <li><%= link_to 'My Profile', user_path(current_user) %></li>
-    <li><%= link_to 'Logout', logout_path %></li>
+    <li style="color: white;"><%= link_to 'My Profile', user_path(current_user) %></li>
+    <li style="color: white;"><%= link_to 'Logout', logout_path, method: :delete, data: { confirm: 'Are you sure you want to log out?' } %></li>
 <% else %>
-    <li><%= link_to 'Login', login_path %></li>  
+    <li style="color: white;"><%= link_to 'Login', login_path %></li>  
 <% end %>
 </ul>
 </nav>
