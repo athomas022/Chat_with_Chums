@@ -12,13 +12,14 @@
     <% @chat_rooms.each do |chat_room| %>
         <div>
           <h1>Name: <%= chat_room.name %></h1>
-          <span class ='chat-icon', style='color: <%= '##{rand(0xffffff).to_s(16)}' %>;'>
-            <i class='bi bi-chat-left-fill'></i>
-          </span>
           <h2><%= chat_room.announcements %> </h2>
           <h3>User count: <%= chat_room.users.count %></h3>
-          <button><%= link_to 'Join', chat_room_path(chat_room) %></button>
-
+          <% if chat_room.users_id.include?(current_user.id) %>
+          <span>Joined</span>
+          <%= button_to 'Leave', leave_chat_room_path(chat_room), method: :delete %>
+        <% else %>
+          <%= button_to 'Join', join_chat_room_path(chat_room), method: :post%>
+        <% end %>
         <div>
     <% end %>
   </div>

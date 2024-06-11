@@ -77,6 +77,16 @@ class ChatRoomsController < ApplicationController
       unless @chat_room.users_id.include?(current_user.id)
         @chat_room.users_id << current_user.id
         @chat_room.save
+        redirect_to chat_rooms_path
+      end
+     
+    end  
+
+    def leave
+      @chat_room = ChatRoom.find(params[:id])
+      if @chat_room.users_id.include?(current_user.id)
+        @chat_room.users_id.delete(current_user.id)
+        @chat_room.save
       end
       redirect_to chat_rooms_path
     end  
