@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::Base
   
-  # respond_to :json
+
 
   before_action :process_token
   before_action :authenticate_user!
       
     def authenticate_user!
       unless user_signed_in?
-        redirect_to new_user_path
+        redirect_to login_path
       end
     end
 

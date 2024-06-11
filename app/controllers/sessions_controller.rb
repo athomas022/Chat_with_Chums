@@ -20,15 +20,8 @@ class SessionsController < ApplicationController
   end
 
     def destroy
-      if current_user
-        render json: {
-          message: "#{current_user.username} has logged out successfully."
-        }, status: :ok
-      else
-        render json: {
-          message: "Couldn't find an active session."
-        }, status: :unauthorized
-      end
+        logout_user
+        redirect_to root_path, notice: "#{current_user&.username|| 'User'} has logged out successfully."
     end
 
   private
@@ -39,6 +32,13 @@ class SessionsController < ApplicationController
 
   def session_params
     params.except(:authenticity_token, :commit).permit(:username, :password)
+  end
+
+  def logout_user
+    session.delete(:user_id)
+    @current_user_id = nil
+    cookies.delete(session[:jwt_token])
+    puts "#{session[:jwt_token]}"
   end
 
 end
