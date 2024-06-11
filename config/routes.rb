@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'chat_with/:recipient_id', to: 'direct_messages#show', as: 'chat_with'
   # post '/join', to: 'chat_rooms#join', as: 'join_chat_room'
   # delete '/leave', to: 'chat_rooms#leave', as: 'leave_chat_room'
+  delete 'remove_participant/:user_id', to: 'chat_rooms#remove_participant', as: 'remove_participant'
 
   resources :users, only: [:index, :show, :create, :edit, :update, :destroy] do
   end

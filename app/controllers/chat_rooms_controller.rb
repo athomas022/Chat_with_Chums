@@ -22,7 +22,6 @@ class ChatRoomsController < ApplicationController
 
   def edit
     @chat_room = ChatRoom.find(params[:id])
-    render :edit
   end
 
     def create
@@ -41,7 +40,7 @@ class ChatRoomsController < ApplicationController
     @chat_room = ChatRoom.find(params[:id]) 
       if @chat_room.admin_id == current_user.id
           if @chat_room.update(chat_room_params)
-            render json: @chat_room
+            redirect_to @chat_room, notice: 'Chat room was successfully updated.'
           else
             flash.now[:error] = "Could not update the chat room details"
             render action: "edit"
@@ -114,10 +113,21 @@ class ChatRoomsController < ApplicationController
       redirect_to chat_rooms_path
     end
 
+def remove_participant
+  @chat_room = ChatRoom.find(params[:id])
+  @user = User.find(params[:user_id])
+  if @chat_room.admin_id == current_user.id
+    @chat_room.users.delete(@user)
+    flash[:notice] = "Participant removed successfully"
+  else
+    flash[:error] = "You are not authorized to remove participants from this chat room"
+  end
+  redirect_back(fallback_location: chat_room_path(@chat_room))
+end
 
 private
 
   def chat_room_params
-    params.require(:chat_room).permit(:name, :description)
+    params.require(:chat_room).permit(:name, :personality_types, :is_public, :announcements, :users_id)
   end
 end

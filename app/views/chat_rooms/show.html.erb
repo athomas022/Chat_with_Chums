@@ -4,8 +4,8 @@
 <div style="display: flex-grid;" >
 <div style = style="flex: 1; max-width: 250px;">
 <% if @chat_room.admin_id == current_user.id %>
-    <button><%= link_to 'Edit', chat_rooms_path(@chat_room) %></button>
-    <button><%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' } %></button>
+  <button><%= link_to 'Edit', edit_chat_room_path(@chat_room) %></button> <!-- Corrected path -->
+  <button><%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' } %></button>
 <% end %>
 
 

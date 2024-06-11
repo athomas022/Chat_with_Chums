@@ -1,52 +1,61 @@
 <body>
   <%= render 'partials/navbar' %>
   <h1>Edit the chat room</h1>
-  <%= form_with model: @chat_room, url: chat_room_path(@chat_room), method: :put, local: true do |f| %>
+  <%= form_with model: @chat_room, local: true do |f| %>
     <div>
-      <div >
-        <%= f.label :name, 'Name' %>
-        <%= f.text_field :name, value: @chat_room.name %>
-      </div>
-      <div >
-        <%= f.label :personality_types, 'Personality types' %>
-        <%= f.select :personality_types, options_for_select([
-          ["ISTJ - The Inspector", "ISTJ"],
-          ["ISFJ - The Protector", "ISFJ"],
-          ["INFJ - The Advocate", "INFJ"],
-          ["INTJ - The Architect", "INTJ"],
-          ["ISTP - The Craftsman", "ISTP"],
-          ["ISFP - The Composer", "ISFP"],
-          ["INFP - The Healer", "INFP"],
-          ["INTP - The Thinker", "INTP"],
-          ["ESTP - The Dynamo", "ESTP"],
-          ["ESFP - The Performer", "ESFP"],
-          ["ENFP - The Champion", "ENFP"],
-          ["ENTP - The Visionary", "ENTP"],
-          ["ESTJ - The Supervisor", "ESTJ"],
-          ["ESFJ - The Provider", "ESFJ"],
-          ["ENFJ - The Teacher", "ENFJ"],
-          ["ENTJ - The Commander", "ENTJ"]
-        ]), {},  'aria-label': 'Select Personalities', value: @chat_room.personality_types %>
-      </div>
-      <div >
-        <%= f.label :is_public, 'Change Public Status' %>
-        <%= f.check_box :is_public %>
-      </div>
-      <div >
-        <%= f.label :announcements, 'Announcements' %>
-        <%= f.text_area :announcements, value: @chat_room.announcements %>
-      </div>
-      <div >
-        <%= f.label :users_id, 'Users' %>
-        <ul>
-          <% @chat_room.users.each do |user| %>
-            <li>
-              <%= user.username %>
-              <%= button_to 'Delete', chat_room_participant_path(@chat_room, user), method: :delete, data: { confirm: 'Are you sure?' } %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+      <%= f.label :name, 'Name' %>
+      <%= f.text_field :name, value: @chat_room.name %>
+    </div>
+    <br>
+    <div>
+      <%= f.label :personality_types, 'Personality types' %>
+      <%= f.select :personality_types, options_for_select([
+        ["ISTJ - The Inspector", "ISTJ"],
+        ["ISFJ - The Protector", "ISFJ"],
+        ["INFJ - The Advocate", "INFJ"],
+        ["INTJ - The Architect", "INTJ"],
+        ["ISTP - The Craftsman", "ISTP"],
+        ["ISFP - The Composer", "ISFP"],
+        ["INFP - The Healer", "INFP"],
+        ["INTP - The Thinker", "INTP"],
+        ["ESTP - The Dynamo", "ESTP"],
+        ["ESFP - The Performer", "ESFP"],
+        ["ENFP - The Champion", "ENFP"],
+        ["ENTP - The Visionary", "ENTP"],
+        ["ESTJ - The Supervisor", "ESTJ"],
+        ["ESFJ - The Provider", "ESFJ"],
+        ["ENFJ - The Teacher", "ENFJ"],
+        ["ENTJ - The Commander", "ENTJ"]
+      ]), {}, 'aria-label': 'Select Personalities', selected: @chat_room.personality_types %>
+    </div>
+    <br>
+    <div>
+      <%= f.label :is_public, 'Change Public Status' %>
+      <%= f.check_box :is_public %>
+    </div>
+    <br>
+    <div>
+      <%= f.label :announcements, 'Announcements' %>
+      <%= f.text_area :announcements%>
+    </div>
+    <br>
+    <div>
+      <%= f.label :users_id, 'Users' %>
+      <ul>
+        <% @chat_room.users.each do |user| %>
+          <li>
+            <%= user.username %>
+            <% if user.id != @chat_room.admin_id %> 
+              <%= button_to 'Remove', remove_participant_chat_room_path(@chat_room, user_id: user.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% else %>
+              <span>(Admin)</span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <br>
+    <div>
       <%= f.submit "Update Chat room" %>
       <button><%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' } %></button>
     </div>
