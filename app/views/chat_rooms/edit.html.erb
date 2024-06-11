@@ -2,12 +2,12 @@
   <%= render 'partials/navbar' %>
   <h1>Edit the chat room</h1>
   <%= form_with model: @chat_room, url: chat_room_path(@chat_room), method: :put, local: true do |f| %>
-    <div class= 'container'>
-      <div class='form-group'>
+    <div>
+      <div >
         <%= f.label :name, 'Name' %>
-        <%= f.text_field :name, class: 'form-control', value: @chat_room.name %>
+        <%= f.text_field :name, value: @chat_room.name %>
       </div>
-      <div class='form-group'>
+      <div >
         <%= f.label :personality_types, 'Personality types' %>
         <%= f.select :personality_types, options_for_select([
           ["ISTJ - The Inspector", "ISTJ"],
@@ -26,29 +26,29 @@
           ["ESFJ - The Provider", "ESFJ"],
           ["ENFJ - The Teacher", "ENFJ"],
           ["ENTJ - The Commander", "ENTJ"]
-        ]), {}, class: 'form-select', 'aria-label': 'Select Personalities', value: @chat_room.personality_types %>
+        ]), {},  'aria-label': 'Select Personalities', value: @chat_room.personality_types %>
       </div>
-      <div class='form-group'>
+      <div >
         <%= f.label :is_public, 'Change Public Status' %>
-        <%= f.check_box :is_public, class: 'form-check-input' %>
+        <%= f.check_box :is_public %>
       </div>
-      <div class='form-group'>
+      <div >
         <%= f.label :announcements, 'Announcements' %>
-        <%= f.text_area :announcements, class: 'form-control', value: @chat_room.announcements %>
+        <%= f.text_area :announcements, value: @chat_room.announcements %>
       </div>
-      <div class='form-group'>
+      <div >
         <%= f.label :users_id, 'Users' %>
         <ul>
           <% @chat_room.users.each do |user| %>
             <li>
               <%= user.username %>
-              <%= button_to 'Delete', chat_room_participant_path(@chat_room, user), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+              <%= button_to 'Delete', chat_room_participant_path(@chat_room, user), method: :delete, data: { confirm: 'Are you sure?' } %>
             </li>
           <% end %>
         </ul>
       </div>
-      <%= f.submit "Update Chat room", class: "btn btn-primary" %>
-      <button><%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, class: 'btn btn-danger',  data: { confirm: 'Are you sure?' } %></button>
+      <%= f.submit "Update Chat room" %>
+      <button><%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' } %></button>
     </div>
   <% end %>
   <%= render 'partials/footer' %>

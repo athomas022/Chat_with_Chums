@@ -2,7 +2,13 @@
   <%= render 'partials/navbar' %>
 
 <div style="display: flex-grid;" >
-<div style = style="flex: 1; max-width: 250px;>
+<div style = style="flex: 1; max-width: 250px;">
+<% if @chat_room.admin_id == current_user.id %>
+    <button><%= link_to 'Edit', chat_rooms_path(@chat_room) %></button>
+    <button><%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' } %></button>
+<% end %>
+
+
   <%= render 'partials/sidebar', users: @users %>
   <%= link_to 'Go back to chats', chat_rooms_path, style: 'display: inline-block; padding: 10px 20px; font-size: 16px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
   <h1 "font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Welcome to <%= @chat_room.name %></h1>

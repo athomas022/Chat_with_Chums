@@ -1,9 +1,9 @@
-<div class='user-sidebar'>
+<div >
   <% @users.each do |user| %>
     <% next if user.nil? %> 
     <p><%= user.name %></p>
     <button>
-    <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post, class: 'btn btn-primary' %>
+    <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post %>
   </button>
 <% end %>
 </div>

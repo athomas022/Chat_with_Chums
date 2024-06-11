@@ -1,14 +1,14 @@
 <body>
 <%= render 'partials/navbar' %>
 <h1>Chat Rooms</h1>
-  <div class="searchbar">
+  <div>
     <%= form_tag(chat_rooms_path, method: :get) do %>
       <%= text_field_tag(:keyword, params[:keyword], placeholder: "Search for keyword") %>
       <%= submit_tag("Search") %>
     <% end %>
     <%= link_to "Clear search", chat_rooms_path %>
   </div>
-  <div class ='chat-room-container'>
+  <div >
     <% @chat_rooms.each do |chat_room| %>
         <div>
           <h1>Name: <%= chat_room.name %></h1>
@@ -17,8 +17,10 @@
           <% if chat_room.users_id.include?(current_user.id) %>
           <span>Joined</span>
           <%= button_to 'Leave', leave_chat_room_path(chat_room), method: :delete %>
+          <%= link_to 'View', chat_room_path(chat_room) %> 
         <% else %>
-          <%= button_to 'Join', join_chat_room_path(chat_room), method: :post%>
+          <%= button_to 'Join', join_chat_room_path(chat_room), method: :post %>
+          <%= link_to 'View', chat_room_path(chat_room) %> 
         <% end %>
         <div>
     <% end %>

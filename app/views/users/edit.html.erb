@@ -2,23 +2,23 @@
   <%= render 'partials/navbar' %>
   <h1>Edit User</h1>
   <%= form_with model: @user, url: user_path(@user), method: :put, local: true do |f| %>
-    <div class='container'>
-      <div class='form-group'>
-        <%= f.text_field :name, class: 'form-control', value: @user.name %>
+    <div>
+      <div>
+        <%= f.text_field :name, value: @user.name %>
       </div>
-      <div class='form-group'>
-        <%= f.text_field :username, class: 'form-control', value: @user.username %>
+      <div>
+        <%= f.text_field :username, value: @user.username %>
       </div>
-      <div class='form-group'>
-        <%= f.password_field :password, class: 'form-control' %>
+      <div>
+        <%= f.password_field :password %>
       </div>
-      <div class='form-group'>
-        <%= f.number_field :age, class: 'form-control', value: @user.age %>
+      <div>
+        <%= f.number_field :age, value: @user.age %>
       </div>
-      <div class='form-group'>
-        <%= f.number_field :zipcode, class: 'form-control', value: @user.zipcode %>
+      <div>
+        <%= f.number_field :zipcode, value: @user.zipcode %>
       </div>
-      <div class='form-group'>
+      <div>
         <%= f.select :personality_type, options_for_select([
             ["ISTJ - The Inspector", "ISTJ"],
             ["ISFJ - The Protector", "ISFJ"],
@@ -36,19 +36,19 @@
             ["ESFJ - The Provider", "ESFJ"],
             ["ENFJ - The Teacher", "ENFJ"],
             ["ENTJ - The Commander", "ENTJ"]
-          ]), {}, class: 'form-select', 'aria-label': 'Edit Personality', value: @user.personality_type %>
+          ]), {}, 'aria-label': 'Edit Personality', value: @user.personality_type %>
       </div>
-      <div class='form-group'>
-        <%= f.text_area :interests, class: 'form-control', value: @user.interests %>
+      <div>
+        <%= f.text_area :interests, value: @user.interests %>
       </div>
-      <div class='form-group'>
+      <div>
         <%= f.label :is_verified, 'Verification Status' %>
-        <%= f.check_box :is_verified, class: 'form-check-input', checked: @user.is_verified %>
+        <%= f.check_box :is_verified,  checked: @user.is_verified %>
       </div>
-      <div class='form-group'>
-        <%= f.text_area :bio, class: 'form-control', value: @user.bio %>
+      <div>
+        <%= f.text_area :bio, value: @user.bio %>
       </div>
-      <%= f.submit "Update the user details", class: "btn btn-primary" %>
+      <%= f.submit "Update the user details"%>
     </div>
   <% end %>  
   <%= render 'partials/footer' %>

@@ -1,15 +1,15 @@
 <body>
   <%= render 'partials/navbar' %>
   <h1>Create a chat room</h1>
-  <%= form_with model: @chat_room, url: chat_room_path(chat_room), method: :post, local: true do |f| %>
-    <div class='container'>
+  <%= form_with model: @chat_room, url: chat_rooms_path, method: :post, local: true do |f| %>
+    <div >
       <%= f.hidden_field :created_on, value: Date.today %>
       <%= f.hidden_field :admin_id, value: current_user.id %>
-      <div class='form-group'>
+      <div>
         <%= f.label :name, 'Name' %>
-        <%= f.text_field :name, class: 'form-control', placeholder: 'Enter group name here' %>
+        <%= f.text_field :name, placeholder: 'Enter group name here' %>
       </div>
-      <div class='form-group'>
+      <div>
         <%= f.label :personality_types, 'Personality types' %>
         <%= f.select :personality_types, options_for_select([
           ["ISTJ - The Inspector", "ISTJ"],
@@ -28,15 +28,15 @@
           ["ESFJ - The Provider", "ESFJ"],
           ["ENFJ - The Teacher", "ENFJ"],
           ["ENTJ - The Commander", "ENTJ"]
-        ]), {}, class: 'form-select', 'aria-label': 'Select Personalities' %>
+        ]), {}, 'aria-label': 'Select Personalities' %>
       </div>
-      <div class='form-group'>
+      <div>
         <%= f.label :is_public, 'Make the group public?' %>
-        <%= f.check_box :is_public, class: 'form-check-input' %>
+        <%= f.check_box :is_public %>
       </div>
-      <div class='form-group'>
+      <div>
         <%= f.label :announcements, 'Announcements' %>
-        <%= f.text_area :announcements, class: 'form-control' %>
+        <%= f.text_area :announcements %>
       </div>
       <%= f.submit "Create a new Chat room"%>
     </div>

@@ -1,7 +1,7 @@
 <body>
   <%= render 'partials/navbar' %>
-  <div class='container'>
-    <div class='profile'>
+  <div>
+    <div >
       <h1>My Profile</h1>
       <h3>Username: <%= @user.username %></h3>
       <h3>Name: <%= @user.name%></h3>
@@ -21,7 +21,7 @@
       <% end %>
       <% if @user == current_user %>
         <button><%= link_to 'Edit', edit_user_path(@user) %></button>
-        <button><%= link_to 'Delete', user_path(@user), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %></button>
+        <button><%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %></button>
       <% end %>
     </div>
   </div>

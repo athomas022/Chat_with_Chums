@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show, :create, :edit, :update, :destroy] do
   end
-  resources :chat_rooms, only: [:index, :new, :show, :create, :update, :destroy] do
+  resources :chat_rooms, only: [:index, :edit, :new, :show, :create, :update, :destroy] do
     member do
       post 'join'
       delete 'leave'

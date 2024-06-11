@@ -17,24 +17,25 @@ class ChatRoomsController < ApplicationController
   end
 
   def new
-    render :new
+    @chat_room = ChatRoom.new
   end
 
-  # def edit
-  # end
+  def edit
+    @chat_room = ChatRoom.find(params[:id])
+    render :edit
+  end
 
-  def create
-   @chat_room = ChatRoom.new(chat_room_params)
-   @chat_room.admin_id = current_user
-    if @chat_room.save
-      render json: @chat_room
-    else
-      flash.now[:error] = "Could not create the chat room"
-      render action: "new"
+    def create
+      @chat_room = ChatRoom.new(chat_room_params)
+      @chat_room.admin_id = current_user.id
+      @chat_room.created_on = Date.today
+  
+      if @chat_room.save
+        redirect_to @chat_room, notice: 'Chat room was successfully created.'
+      else
+        render :new
+      end
     end
-  rescue StandardError => e
-    Rails.logger.warn("Error creating message: #{e.message}")
-  end
 
   def update
     @chat_room = ChatRoom.find(params[:id]) 
