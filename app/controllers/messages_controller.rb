@@ -28,8 +28,9 @@ class MessagesController < ApplicationController
     @message.user_id = current_user.id
 
     if @message.save
-      ActionCable.server.broadcast "chat_room_#{params[:message][:chat_room_id]}", { message: @message.body, username: current_user.username }
-      redirect_to chat_room_path(params[:message][:chat_room_id])
+      ActionCable.server.broadcast "chat_room_#{params[:chat_room_id]}", { message: @message.body, username: current_user.username }
+    puts "Redirecting to chat room with ID: #{params[:chat_room_id]}"
+    redirect_to chat_room_path(params[:chat_room_id]) 
     else 
       Rails.logger.error(@message.errors.inspect)
       head :unprocessable_entity
