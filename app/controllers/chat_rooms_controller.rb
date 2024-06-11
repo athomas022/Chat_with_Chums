@@ -6,6 +6,7 @@ class ChatRoomsController < ApplicationController
   def show
     @chat_room = ChatRoom.find(params[:id])
     @users = @chat_room.users
+    @messages = @chat_room.messages
     Rails.logger.info "ChatRoom #{@chat_room.id} has #{@users.count} users"
     @users.each do |user|
       Rails.logger.info "User: #{user.id}, Name: #{user.name}, Picture: #{user.picture?}, Verified: #{user.is_verified}, Online: #{user.is_online}"

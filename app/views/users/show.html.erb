@@ -3,14 +3,6 @@
   <div class='container'>
     <div class='profile'>
       <h1>My Profile</h1>
-      <div class='profile-picture'>
-        <span class='user-icon' style='color: <%= "##{rand(0xffffff).to_s(16)}" %>;'>
-          <i class="bi bi-person-rolodex"></i>
-        </span>
-        <% if @user.is_verified %>
-          <i class="bi bi-patch-check-fill"></i>
-        <% end %>
-      </div>
       <h3>Username: <%= @user.username %></h3>
       <h3>Name: <%= @user.name%></h3>
       <h3>Personality: <%= @user.personality_type %></h3>

@@ -10,7 +10,7 @@ class DirectMessagesController < ApplicationController
     
         if chat_room.persisted?
           message = Message.create(chat_room_id: chat_room.id, body: params[:body], user_id: current_user.id)
-          
+            x
           if message.persisted?
             broadcast_message(chat_room, message)
             flash[:notice] = "Message sent successfully."
