@@ -19,10 +19,16 @@ class SessionsController < ApplicationController
     end
   end
 
-    def destroy
-        logout_user
-        redirect_to root_path, notice: "#{current_user&.username|| 'User'} has logged out successfully."
-    end
+  def destroy
+    logout_user
+      redirect_to root_path, notice: "#{current_user&.username|| 'User'} has logged out successfully."
+  end
+
+  def logout_user
+    reset_session
+    cookies.delete(:jwt_token)
+    @current_user_id = nil
+  end
 
   private
 
@@ -30,15 +36,8 @@ class SessionsController < ApplicationController
   #   JWT.encode({ id: user.id, exp: 60.days.from_now.to_i }, ENV['DEVISE_JWT_SECRET_KEY'])
   # end
 
-  def session_params
-    params.except(:authenticity_token, :commit).permit(:username, :password)
-  end
-
-  def logout_user
-    session.delete(:user_id)
-    @current_user_id = nil
-    cookies.delete(session[:jwt_token])
-    puts "#{session[:jwt_token]}"
-  end
+    def session_params
+      params.except(:authenticity_token, :commit).permit(:username, :password)
+    end
 
 end

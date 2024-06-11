@@ -9,6 +9,7 @@
     <%= f.password_field :password, label: 'Password', class: 'form-control', autocomplete: "username" %>
   </div>
   <%= f.submit "Login in", class: "btn btn-primary" %>
+  <%= link_to 'Sign up', new_user_path %>
 <% end %>
 <%= render 'partials/footer' %>
 </body>

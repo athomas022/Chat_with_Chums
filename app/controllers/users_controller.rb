@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     Rails.logger.debug("User params: #{user_params.inspect}")
       if @user.save
-        token = @user.generate_jwt
+        token = @user.generate_jwt(username)
         Rails.logger.debug("User saved successfully with ID: #{@user.id}")
         respond_to do |format|
           format.html { redirect_to root_path }
