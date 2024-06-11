@@ -1,7 +1,7 @@
 <body>
   <%= render 'partials/navbar' %>
   <h1>Edit the chat room</h1>
-  <%= bootstrap_form_with model: @chat_room, url: chat_room_path(@chat_room), method: :put, local: true do |f| %>
+  <%= form_with model: @chat_room, url: chat_room_path(@chat_room), method: :put, local: true do |f| %>
     <div class= 'container'>
       <div class='form-group'>
         <%= f.label :name, 'Name' %>

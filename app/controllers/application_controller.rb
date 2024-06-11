@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  # before_action :authenticate_user!
-  # respond_to :json
+  before_action :authenticate_user!
+  respond_to :json
 
   before_action :process_token
       

@@ -1,7 +1,7 @@
 <body>
   <%= render 'partials/navbar' %>
 <h2>Log in</h2>
-<%= bootstrap_form_with url: login_path, method: :post, local: true do |f| %>
+<%= form_with url: login_path, method: :post, local: true do |f| %>
   <div class='form-group'>
     <%= f.text_field :username, label: 'Username', class: 'form-control', placeholder: 'Your username here' %>
   </div>

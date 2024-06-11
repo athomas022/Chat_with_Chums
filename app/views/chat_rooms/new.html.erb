@@ -1,7 +1,7 @@
 <body>
 <%= render 'partials/navbar' %>
 <h1>Create a chat room</h1>
-<%= bootstrap_form_with model: @chat_rooms, url: chat_room_path, method: :post, local: true do |f| %>
+<%= form_with model: @chat_rooms, url: chat_room_path, method: :post, local: true do |f| %>
 <div class= 'container'>
 <%= f.hidden_field :created_on, value: Date.now %>
 <%= f.hidden_field :admin_id, value: current_user.id %>
