@@ -16,10 +16,11 @@
             <i class='bi bi-chat-left-fill'></i>
           </span>
           <h2><%= chat_room.announcements %> </h2>
-          <h3>User count: <%= chat_room.users_id.size %></h3>
+          <h3>User count: <%= chat_room.users.count %></h3>
           <button><%= link_to 'View', chat_room_path(chat_room) %></button>
         <div>
     <% end %>
   </div>
+  <button><%= link_to 'Create a new ChatRoom', new_chat_room_path %></button>
 <%= render 'partials/footer' %>
 </body>
