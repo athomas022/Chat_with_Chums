@@ -26,13 +26,12 @@ class MessagesController < ApplicationController
     @chat_room = ChatRoom.find(params[:chat_room_id])
     @message = @chat_room.messages.new(message_params)
     @message.user_id = current_user.id
+
     if @message.save
-      # render json: @message
-      head :ok
+      ActionCable.server.broadcast "chat_room_#{params[:message][:chat_room_id]}", { message: @message.body, username: current_user.username }
+      redirect_to chat_room_path(params[:message][:chat_room_id])
     else 
       Rails.logger.error(@message.errors.inspect)
-      # flash.now[:error] = "Could not create message"
-      # render action: "new" 
       head :unprocessable_entity
     end
     rescue StandardError => e
