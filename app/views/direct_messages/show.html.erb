@@ -1,0 +1,17 @@
+<body>
+  <%= render 'partials/navbar' %>
+  <div class='container'>
+    <div class='chat'>
+    <% @messages.each do |message| %>
+            <%= render partial: 'messages/message', locals: { message: message } %>
+     <% end %>
+    </div>
+    <div class='messages-form'>
+    <%= form_with url: chat_with_path(@recipient), method: :post, local: true do |form| %>
+        <%= form.text_area :body, placeholder: "Type your message here" %>
+        <%= form.submit "Send" %>
+      <% end %>
+    </div>
+  </div>
+  <%= render 'partials/footer' %>
+</body>

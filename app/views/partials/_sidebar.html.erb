@@ -1,17 +1,9 @@
 <div class='user-sidebar'>
-<% users.each do |user| %>
-<p><%= user.name %></p>
-<% if user.picture? %>
-    <%= image_tag(@user.picture) %>
-<% else %>
-    <i class="bi bi-person-circle"></i>
-<% end %>    
-<% if user.is_verified %>
-   <i class="bi bi-patch-check-fill"></i>
-<% end %>
-<% if user.is_online %>
-    <i class="bi bi-circle-fill"></i>
-<% end %>
-<button><%= link_to 'Start DM', start_chat_with_path(user_id), method: :post, class: 'btn btn-primary'%></button>
+  <% @users.each do |user| %>
+    <% next if user.nil? %> 
+    <p><%= user.name %></p>
+    <button>
+    <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post, class: 'btn btn-primary' %>
+  </button>
 <% end %>
 </div>

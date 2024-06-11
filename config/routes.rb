@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
   get '/signup', to: 'users#new', as: 'new_user'
-  post '/start_chat_with/:receipient_id', to: 'direct_messages#new'
+  post '/start_chat_with/:recipient_id', to: 'direct_messages#new', as: 'start_chat_with'
+  get 'chat_with/:recipient_id', to: 'direct_messages#show', as: 'chat_with'
 
   resources :users, only: [:index, :show, :create, :edit, :update, :destroy] do
   end
