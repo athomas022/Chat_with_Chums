@@ -72,6 +72,15 @@ class ChatRoomsController < ApplicationController
     end
 
 
+    def join
+      @chat_room = ChatRoom.find(params[:id])
+      unless @chat_room.users_id.include?(current_user.id)
+        @chat_room.users_id << current_user.id
+        @chat_room.save
+      end
+      redirect_to chat_rooms_path
+    end  
+
 private
 
   def chat_room_params
