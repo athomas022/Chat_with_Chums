@@ -58,7 +58,6 @@ class UsersController < ApplicationController
       render json: { message: "Successfully deleted the user"}, status: :ok
     else 
       render json: { error: "Could not delete user"}, status: :unprocessable_entity
-      #no redirects for the API only rendering JSON
     end
     rescue StandardError => e
     Rails.logger.warn("Error deleting data: #{e.message}")

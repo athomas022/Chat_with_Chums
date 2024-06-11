@@ -76,20 +76,43 @@ class ChatRoomsController < ApplicationController
       @chat_room = ChatRoom.find(params[:id])
       unless @chat_room.users_id.include?(current_user.id)
         @chat_room.users_id << current_user.id
-        @chat_room.save
-        redirect_to chat_rooms_path
+        if @chat_room.save
+          unless @chat_room.participants.exists?(user_id: current_user.id)
+            participant = @chat_room.participants.create(user_id: current_user.id)
+            if participant.persisted?
+              Rails.logger.info "User added to participants table"
+            else
+              Rails.logger.error "Failed to add user to participants table: #{participant.errors.full_messages}"
+            end
+          end
+        else
+          Rails.logger.error "Failed to save chat room: #{@chat_room.errors.full_messages}"
+        end
+      else
+        Rails.logger.info "User already joined this chat room"
       end
-     
-    end  
+      
+      redirect_to @chat_room
+    end
 
     def leave
       @chat_room = ChatRoom.find(params[:id])
       if @chat_room.users_id.include?(current_user.id)
         @chat_room.users_id.delete(current_user.id)
-        @chat_room.save
+        if @chat_room.save
+          participants = @chat_room.participants.where(user_id: current_user.id)
+          if participants.destroy_all
+            Rails.logger.info "User removed from participants table"
+          else
+            Rails.logger.error "Failed to remove user from participants table"
+          end
+        else
+          Rails.logger.error "Failed to save chat room: #{@chat_room.errors.full_messages}"
+        end
       end
       redirect_to chat_rooms_path
-    end  
+    end
+
 
 private
 
