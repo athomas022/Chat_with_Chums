@@ -8,19 +8,19 @@ class MessagesController < ApplicationController
     head :internal_server_error
   end
 
-  # def show
-  #   @message = Message.where(chat_room_id: params[:chat_room_id]).find(params[:id])
-  #     render json: @message
-  #   rescue StandardError => e
-  #     Rails.logger.warn("Error fetching messages: #{e.message}")
-  #     head :not_found
-  # end
+  def show
+    @message = Message.where(chat_room_id: params[:chat_room_id]).find(params[:id])
+      render json: @message
+    rescue StandardError => e
+      Rails.logger.warn("Error fetching messages: #{e.message}")
+      head :not_found
+  end
 
-  # def new
-  # end
+  def new
+  end
 
-  # def edit
-  # end
+  def edit
+  end
 
   def create
     @chat_room = ChatRoom.find(params[:chat_room_id])
@@ -40,17 +40,17 @@ class MessagesController < ApplicationController
       head :internal_server_error
   end
 
-  # def update
-  #   @message = Message.find(params[:id])
-  #   if @message.update(message_params)
-  #     render json: @message
-  #   else 
-  #    flash.now[:error] = "Could not update the message"
-  #    render action: "edit"
-  #   end
-  #   rescue StandardError => e
-  #     Logger.warn("Error updating data: #{e.message}")
-  # end
+  def update
+    @message = Message.find(params[:id])
+    if @message.update(message_params)
+      render json: @message
+    else 
+     flash.now[:error] = "Could not update the message"
+     render action: "edit"
+    end
+    rescue StandardError => e
+      Logger.warn("Error updating data: #{e.message}")
+  end
 
   def destroy
     @message = Message.find(params[:id])
