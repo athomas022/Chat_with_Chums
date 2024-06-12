@@ -11,6 +11,11 @@ class ChatRoomsController < ApplicationController
         @users = @chat_room.users
       end
     @messages = @chat_room.messages
+
+    @users.each do |user|
+      user.is_online = (user == current_user)
+    end
+
     Rails.logger.info "ChatRoom #{@chat_room.id} has #{@users.count} users"
     @users.each do |user|
       Rails.logger.info "User: #{user.id}, Name: #{user.name}, Picture: #{user.picture?}, Verified: #{user.is_verified}, Online: #{user.is_online}"
