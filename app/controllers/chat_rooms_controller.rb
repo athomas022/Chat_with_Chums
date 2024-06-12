@@ -5,13 +5,16 @@ class ChatRoomsController < ApplicationController
 
   def show
     @chat_room = ChatRoom.find(params[:id])
-    @users = @chat_room.users
+      if params[:keyword].present?
+        @users = User.where("name LIKE ?", "%#{params[:keyword]}%")
+      else
+        @users = @chat_room.users
+      end
     @messages = @chat_room.messages
     Rails.logger.info "ChatRoom #{@chat_room.id} has #{@users.count} users"
     @users.each do |user|
       Rails.logger.info "User: #{user.id}, Name: #{user.name}, Picture: #{user.picture?}, Verified: #{user.is_verified}, Online: #{user.is_online}"
     end
-    # render json: @chat_room
   rescue StandardError => e
     Rails.logger.warn("Error fetching messages: #{e.message}")
   end

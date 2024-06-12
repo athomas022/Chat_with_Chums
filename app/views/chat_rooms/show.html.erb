@@ -1,33 +1,33 @@
 <body>
   <%= render 'partials/navbar' %>
-
-<div style="display: flex-grid;" >
-<div style = style="flex: 1; max-width: 250px;">
-<% if @chat_room.admin_id == current_user.id %>
-  <button><%= link_to 'Edit', edit_chat_room_path(@chat_room) %></button> <!-- Corrected path -->
-  <button><%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' } %></button>
-<% end %>
-
-
-  <%= render 'partials/sidebar', users: @users %>
-  <%= link_to 'Go back to chats', chat_rooms_path, style: 'display: inline-block; padding: 10px 20px; font-size: 16px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
-  <h1 "font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Welcome to <%= @chat_room.name %></h1>
-  <div style = "max-width: 1200px; margin: 0 auto;">
-    <div style = "margin-bottom: 1rem;">
-     <% @messages = @chat_room.messages %>
-        <% @messages.each do |message| %>
-          <div style="padding: 1rem; border-radius: 0.5rem; <%= message.user_id == current_user.id ? 'background-color: #e6f7ff; text-align: right;' : 'background-color: #f0f0f0; text-align: left;' %>">
-            <%= render partial: 'messages/message', locals: { message: message } %>
-          </div>
-     <% end %>
-    </div>
-    <div style="margin-top: 1rem;">
-      <%= form_with model: [@chat_room, @chat_room.messages.new], method: :post, local: true do |f| %>
-        <div style="margin-bottom: 0.5rem;">
-          <%= f.text_area :body, placeholder: 'Type your message here', style: "width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 0.25rem;" %>
-        </div>
-        <%= f.submit "Send", style: "background-color: #007bff; color: white; padding: 0.5rem 1rem; border: none; border-radius: 0.25rem; cursor: pointer; margin-left:0" %>
+  <div style="display: flex;">
+    <div style="flex: 1; max-width: 250px;">
+      <% if @chat_room.admin_id == current_user.id %>
+        <button><%= link_to 'Edit', chat_rooms_path(@chat_room) %></button>
+        <button><%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' } %></button>
       <% end %>
+      <div>
+        <%= render 'partials/sidebar', users: @users, chat_room: @chat_room %>
+      </div>
+      <%= link_to 'Go back to chats', chat_rooms_path, style: 'display: inline-block; padding: 10px 20px; font-size: 16px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
+      <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Welcome to <%= @chat_room.name %></h1>
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="margin-bottom: 1rem;">
+          <% @messages.each do |message| %>
+            <div style="padding: 1rem; border-radius: 0.5rem; <%= message.user_id == current_user.id ? 'background-color: #e6f7ff; text-align: right;' : 'background-color: #f0f0f0; text-align: left;' %>">
+              <%= render partial: 'messages/message', locals: { message: message } %>
+            </div>
+          <% end %>
+        </div>
+        <div style="margin-top: 1rem;">
+          <%= form_with model: [@chat_room, @chat_room.messages.new], method: :post, local: true do |f| %>
+            <div style="margin-bottom: 0.5rem;">
+              <%= f.text_area :body, placeholder: 'Type your message here', style: "width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 0.25rem;" %>
+            </div>
+            <%= f.submit "Send", style: "background-color: #007bff; color: white; padding: 0.5rem 1rem; border: none; border-radius: 0.25rem; cursor: pointer; margin-left:0" %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
   <%= render 'partials/footer' %>

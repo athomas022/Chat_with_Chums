@@ -1,21 +1,21 @@
 <div style="padding: 10px;">
 <div>
-    <%= form_tag(users_path, method: :get) do %>
-      <%= text_field_tag(:username, params[:username], placeholder: "Search for user with their username") %>
+  <%= form_tag(chat_room_path(@chat_room), method: :get) do %>
+      <%= text_field_tag(:keyword, params[:keyword], placeholder: "Search for user by name") %>
       <%= submit_tag("Search") %>
     <% end %>
-    <%= link_to "Clear search", users_path %>
-  </div>
-<% @users.each do |user| %>
-    <% next if user.nil? %> 
-      <div style="height: 70px; border-bottom: 1px solid #e7ebee; position: relative; padding: 10px; display: flex; align-items: center;">
-          <p style="margin: 0; padding: 0; width: 200px;">
-            <strong style="font-weight: 600; font-size: 15px; color: #597a96;"><%= user.name %></strong><br>
-            <span style="font-size: 13px; font-weight: 400; color: #aab8c2;">Online <%= user.is_online %></span>
-          </p>
+  <%= link_to "Clear search", chat_room_path(@chat_room) %>
+</div>
+  <% @users.each do |user| %>
+    <div style="height: 70px; border-bottom: 1px solid #e7ebee; position: relative; padding: 10px; display: flex; align-items: center;">
+      <p style="margin: 0; padding: 0; width: 200px;">
+        <strong style="font-weight: 600; font-size: 15px; color: #597a96;"><%= user.name %></strong><br>
+        <span style="font-size: 13px; font-weight: 400; color: #aab8c2;">Online <%= user.is_online %></span>
+      </p>
       <div class="status" style="background: #26c281; border-radius: 50%; width: 9px; height: 9px; position: absolute; top: 31px; right: 17px;"></div>
       <div>
-        <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %> 
-      </div> 
+        <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
+      </div>
+    </div>
   <% end %>
 </div>
