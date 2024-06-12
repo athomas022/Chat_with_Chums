@@ -4,21 +4,27 @@
   <%= form_with model: @user, url: user_path(@user), method: :put, local: true do |f| %>
     <div>
       <div>
+        <%= f.label :name, "Name" %>
         <%= f.text_field :name, value: @user.name %>
       </div>
       <div>
+      <%= f.label :username, "Username" %>
         <%= f.text_field :username, value: @user.username %>
       </div>
       <div>
-        <%= f.password_field :password %>
+      <%= f.label :username, "Password" %>
+        <%= f.password_field :password, value: @user.password_digest %>
       </div>
       <div>
+      <%= f.label :username, "Age" %>
         <%= f.number_field :age, value: @user.age %>
       </div>
       <div>
+       <%= f.label :username, "Zipcode" %>
         <%= f.number_field :zipcode, value: @user.zipcode %>
       </div>
       <div>
+      <%= f.label :username, "Personality Type" %>
         <%= f.select :personality_type, options_for_select([
             ["ISTJ - The Inspector", "ISTJ"],
             ["ISFJ - The Protector", "ISFJ"],
@@ -39,6 +45,7 @@
           ]), {}, 'aria-label': 'Edit Personality', value: @user.personality_type %>
       </div>
       <div>
+       <%= f.label :username, "Interests (comma-separated)" %>
         <%= f.text_area :interests, value: @user.interests %>
       </div>
       <div>
@@ -46,6 +53,7 @@
         <%= f.check_box :is_verified,  checked: @user.is_verified %>
       </div>
       <div>
+      <%= f.label :bio, 'Bio' %>
         <%= f.text_area :bio, value: @user.bio %>
       </div>
       <%= f.submit "Update the user details"%>
