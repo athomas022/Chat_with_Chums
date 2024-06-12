@@ -69,6 +69,18 @@ class UsersController < ApplicationController
   end
 
 
+  def add_friends
+    @user = current_user
+     new_friend_id = params[:friend_id].to_i
+      @user.friends_id << new_friend_id
+       @user.friends_id.uniq!
+       if @user.save
+        redirect_back fallback_location: user_path(@user), notice: 'Friend added.'
+       else
+        render json: { error: "Could not add a friend" }, status: :unprocessable_entity
+       end
+  end
+
   private
 
   def user_params

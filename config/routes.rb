@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new', as: 'new_user'
   post '/start_chat_with/:recipient_id', to: 'direct_messages#new', as: 'start_chat_with'
   get 'chat_with/:recipient_id', to: 'direct_messages#show', as: 'chat_with'
+  post 'add_friend/:friend_id', to:'users#add_friends', as: 'add_friend'
   # post '/join', to: 'chat_rooms#join', as: 'join_chat_room'
   # delete '/leave', to: 'chat_rooms#leave', as: 'leave_chat_room'
   delete 'remove_participant/:user_id', to: 'chat_rooms#remove_participant', as: 'remove_participant'
