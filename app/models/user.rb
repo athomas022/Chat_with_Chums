@@ -13,5 +13,13 @@ class User < ApplicationRecord
         user = User.find_by(username: username)
         JWT.encode({ id: user.id, exp: 60.days.from_now.to_i }, ENV['DEVISE_JWT_SECRET_KEY'])
     end
-
+    
+    def self.search_by_username(username)
+        if username.present?   
+         User.where("name LIKE ?", "%#{username}%")
+        else
+         User.all
+        end
+     end
+       
 end

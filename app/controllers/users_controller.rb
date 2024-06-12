@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:new, :create]
   
+   def index
+    @users = User.search_by_username(params[:username])
+   end
+
 
    def update
     @user = User.find(params[:id])
