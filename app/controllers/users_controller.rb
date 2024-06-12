@@ -5,6 +5,7 @@ class UsersController < ApplicationController
    def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+      reset_session if @user.id == current_user.id
       respond_to do |format|
         format.html { redirect_to user_path(@user) }
         format.json { render json: { user: @user, token: token }, status: :ok}
@@ -53,14 +54,19 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-    if @user.destroy
-      render json: { message: "Successfully deleted the user"}, status: :ok
-    else 
-      render json: { error: "Could not delete user"}, status: :unprocessable_entity
-    end
+    begin
+      @user = User.find(params[:id])
+      if @user.destroy
+        respond_to do |format|
+          format.html { redirect_to root_path }
+          format.json { render json: { message: "Successfully deleted the user" }, status: :ok }
+        end
+      else
+        render json: { error: "Could not delete user" }, status: :unprocessable_entity
+      end
     rescue StandardError => e
-    Rails.logger.warn("Error deleting data: #{e.message}")
+      Rails.logger.warn("Error deleting data: #{e.message}")
+    end
   end
 
 

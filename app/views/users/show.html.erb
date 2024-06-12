@@ -7,6 +7,8 @@
       <h3>Name: <%= @user.name%></h3>
       <h3>Personality: <%= @user.personality_type %></h3>
       <h3>Interests: <%= @user.interests %></h3>
+      <h3>Zipcode: <%= @user.zipcode %></h3>
+      <h3>Bio: <%= @user.bio %></h3>
       <h3>My Chat Rooms:</h3>
       <% @user.chat_rooms.each do |chat_room| %>
         <li>

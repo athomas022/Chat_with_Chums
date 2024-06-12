@@ -16,7 +16,12 @@ class ApplicationController < ActionController::Base
     end
     
     def current_user
+      begin
         @current_user ||= User.find(@current_user_id) if @current_user_id.present?
+      rescue ActiveRecord::RecordNotFound
+        reset_session
+        @current_user = nil
+      end
     end
 
     private
