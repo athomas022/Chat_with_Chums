@@ -10,14 +10,20 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
     Rails.logger.debug "User found: #{user.inspect}"
 
-    if user && user.authenticate(session_params[:password])
-      token = User.generate_jwt(user.username)
-      cookies.signed[:jwt_token] = { value: token, httponly: true, secure: Rails.env.production? }
-      Rails.logger.debug "Generated JWT Token: #{token}"
-      Rails.logger.debug "JWT Token stored in cookies: #{cookies.signed[:jwt_token]}"
-      redirect_to user_path(user)
+    if user
+      Rails.logger.debug "Attempting to authenticate user with password: #{session_params[:password]}"
+      if user.authenticate(session_params[:password])
+        token = User.generate_jwt(user.username)
+        cookies.signed[:jwt_token] = { value: token, httponly: true, secure: Rails.env.production? }
+        Rails.logger.debug "Generated JWT Token: #{token}"
+        Rails.logger.debug "JWT Token stored in cookies: #{cookies.signed[:jwt_token]}"
+        redirect_to user_path(user)
+      else
+        Rails.logger.debug "Password authentication failed for user: #{session_params[:username]}"
+        render json: { errors: { 'username or password' => ['is invalid'] } }, status: :unprocessable_entity
+      end
     else
-      Rails.logger.debug "Authentication failed for user: #{session_params[:username]}"
+      Rails.logger.debug "User not found with username: #{session_params[:username]}"
       render json: { errors: { 'username or password' => ['is invalid'] } }, status: :unprocessable_entity
     end
   end
@@ -39,5 +45,6 @@ class SessionsController < ApplicationController
     params.require(:session).permit(:username, :password)
   end
 end
+
 
 

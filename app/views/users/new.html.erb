@@ -1,39 +1,52 @@
-<body style="background-color: #1a202c; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 16px;">
-<%= render 'partials/navbar' %>
-<h1 style="font-size: 2rem; margin-bottom: 1rem;">Sign Up form</h1>
-<%= form_with model: @user, url: users_path, method: :post, local: true do |f| %>
-  <div style="width: 100%; max-width: 600px; background-color: #2d3748; padding: 16px; border-radius: 8px; box-sizing: border-box; margin: 0 auto;">
-    <div style="margin-bottom: 1rem;">
-      <%= f.text_field :name, label: 'Name', placeholder: 'Your name here' %>
+<body style="background-color: #1a202c; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 16px;">
+  <%= render 'partials/navbar' %>
+  <div style="width: 100%; max-width: 600px; background-color: #2d3748; padding: 16px; border-radius: 8px; box-sizing: border-box; margin: 0 auto; color: #e3e3e3;">
+    <h1 style="font-size: 2rem; margin-bottom: 1rem; text-align: center;">Sign Up</h1>
+    <%= form_with model: @user, url: users_path, method: :post, local: true do |f| %>
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :name, 'Name', style: "display: block; margin-bottom: 0.5rem;" %>
+        <%= f.text_field :name, placeholder: 'Your name here', style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #2d3748; color: #ffffff;" %>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :username, 'Username', style: "display: block; margin-bottom: 0.5rem;" %>
+        <%= f.text_field :username, placeholder: 'Your username here', style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #2d3748; color: #ffffff;" %>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :password, 'Password', style: "display: block; margin-bottom: 0.5rem;" %>
+        <%= f.password_field :password, placeholder: 'Your password here', autocomplete: "new-password", style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #2d3748; color: #ffffff;" %>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :password_confirmation, 'Password Confirmation', style: "display: block; margin-bottom: 0.5rem;" %>
+        <%= f.password_field :password_confirmation, placeholder: 'Confirm your password', autocomplete: "new-password", style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #2d3748; color: #ffffff;" %>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :personality_type, 'Personality type', style: "display: block; margin-bottom: 0.5rem;" %>
+        <%= f.select :personality_type, options_for_select([
+            ["ISTJ - The Inspector", "ISTJ"],
+            ["ISFJ - The Protector", "ISFJ"],
+            ["INFJ - The Advocate", "INFJ"],
+            ["INTJ - The Architect", "INTJ"],
+            ["ISTP - The Craftsman", "ISTP"],
+            ["ISFP - The Composer", "ISFP"],
+            ["INFP - The Healer", "INFP"],
+            ["INTP - The Thinker", "INTP"],
+            ["ESTP - The Dynamo", "ESTP"],
+            ["ESFP - The Performer", "ESFP"],
+            ["ENFP - The Champion", "ENFP"],
+            ["ENTP - The Visionary", "ENTP"],
+            ["ESTJ - The Supervisor", "ESTJ"],
+            ["ESFJ - The Provider", "ESFJ"],
+            ["ENFJ - The Teacher", "ENFJ"],
+            ["ENTJ - The Commander", "ENTJ"]
+          ]), {}, style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #2d3748; color: #ffffff;" %>
+      </div>
+      <div style="text-align: center;">
+        <%= f.submit "Create a user and login", style: "background-color: #3182ce; color: white; padding: 0.75rem 1.5rem; border-radius: 0.25rem; border: none; cursor: pointer;" %>
+      </div>
+    <% end %>
+    <div style="text-align: center; margin-top: 1rem;">
+      <%= link_to 'Log in', login_path, style: "color: #3182ce; text-decoration: none;" %>
     </div>
-    <div style="margin-bottom: 1rem;">
-      <%= f.text_field :username, label: 'Username', placeholder: 'Your username here' %>
-    </div>
-    <div style="margin-bottom: 1rem;">
-      <%= f.password_field :password, label: 'Password'%>
-    </div>
-    <div style="margin-bottom: 1rem;">
-      <%= f.select :personality_type, options_for_select([
-          ["ISTJ - The Inspector", "ISTJ"],
-          ["ISFJ - The Protector", "ISFJ"],
-          ["INFJ - The Advocate", "INFJ"],
-          ["INTJ - The Architect", "INTJ"],
-          ["ISTP - The Craftsman", "ISTP"],
-          ["ISFP - The Composer", "ISFP"],
-          ["INFP - The Healer", "INFP"],
-          ["INTP - The Thinker", "INTP"],
-          ["ESTP - The Dynamo", "ESTP"],
-          ["ESFP - The Performer", "ESFP"],
-          ["ENFP - The Champion", "ENFP"],
-          ["ENTP - The Visionary", "ENTP"],
-          ["ESTJ - The Supervisor", "ESTJ"],
-          ["ESFJ - The Provider", "ESFJ"],
-          ["ENFJ - The Teacher", "ENFJ"],
-          ["ENTJ - The Commander", "ENTJ"]
-        ]), {}, label: 'Personality type', 'aria-label': 'Select Personality' %>
-    </div>
-    <%= f.submit "Create a user and login in" %>
   </div>
-<% end %>
-<%= render 'partials/footer' %>
+  <%= render 'partials/footer' %>
 </body>
