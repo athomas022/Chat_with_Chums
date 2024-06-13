@@ -64,19 +64,23 @@ class ChatRoomsController < ApplicationController
   def destroy
     @chat_room = ChatRoom.find(params[:id])
       if @chat_room.admin_id == current_user.id
-         if @chat_room.destroy
+        ActiveRecord::Base.transaction do
+          @chat_room.participants.destroy_all
+          if @chat_room.destroy
            flash[:notification] = "Successfully deleted the chat room"
            redirect_to chat_rooms_path and return
-         else
+          else
           flash.now[:error] = "Could not delete the chat room"
           redirect_to chat_rooms_path and return
-         end
+          end
+        end
       else
         flash.now[:error] = "Not authorized to delete the chat room"
         redirect_to chat_rooms_path and return
       end
     rescue StandardError => e
-      Rails.logger.warn("Error deleting Chat room: #{e.message}")   
+      Rails.logger.warn("Error deleting Chat room: #{e.message}")
+      redirect_to chat_rooms_path
     end
 
 
