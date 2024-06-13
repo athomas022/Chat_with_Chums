@@ -26,20 +26,16 @@ class ApplicationController < ActionController::Base
 
     private
 
-    def process_token
-      if session[:jwt_token].present?
-        begin
-          puts "Session JWT Token: #{session[:jwt_token]}"
-          jwt_payload = JWT.decode(session[:jwt_token], ENV['DEVISE_JWT_SECRET_KEY']).first
-          puts "JWT Payload: #{jwt_payload}"
-          @current_user_id = jwt_payload['id']
-          puts "@current_user_id: #{@current_user_id}"
-        rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError => e
-          puts "JWT Token: #{session[:jwt_token]}"
-          puts "JWT Error: #{e.message}"
-          session[:jwt_token] = nil
-          redirect_to new_user_path, alert: "Invalid or expired token"
+      def process_token
+        if cookies.signed[:jwt_token].present?
+          begin
+            jwt_payload = JWT.decode(cookies.signed[:jwt_token], ENV['DEVISE_JWT_SECRET_KEY']).first
+            @current_user_id = jwt_payload['id']
+          rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError => e
+            cookies.delete(:jwt_token)
+            redirect_to new_user_path, alert: "Invalid or expired token"
+          end
         end
-      end
+
     end
 end
