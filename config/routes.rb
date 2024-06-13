@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       post 'join'
       delete 'leave'
     end
-    resources :direct_messages, only: [:show, :create]
+    resources :direct_messages, only: [:show, :new]
     resources :messages, only: [:index, :show, :new, :create, :update, :destroy]
   end
   root 'welcome#index'

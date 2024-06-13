@@ -1,22 +1,28 @@
-<body>
+<body style="background-color: #1a202c; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; padding: 0; margin: 0;">
   <%= render 'partials/navbar' %>
-  <div class='container'>
-    <div>
-      <h3> Chatting with <strong> <%= @recipient.name %></strong> </h3>
-      <div class='chat'>
-        <% @messages.each do |message| %>
-          <div>
-            <%= render partial: 'messages/message', locals: { message: message } %>
-          </div>
-        <% end %>
-      </div>
-      <div class='messages-form'>
-        <%= form_with model: [@chat_room, @chat_room.messages.new], method: :post, local: true do |form| %>
-          <%= form.hidden_field :recipient_id, value: @recipient.id %>
-          <%= form.text_area :body, placeholder: "Type your message here" %>
-          <%= form.submit "Send" %>
-        <% end %>
-      </div>
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box; padding: 16px;">
+    <div style="width: 100%; max-width: 800px; background-color: #2d3748; padding: 16px; border-radius: 8px; box-sizing: border-box;">
+      <% if @recipient %>
+        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Chatting with <strong><%= @recipient.name %></strong></h3>
+        <div style="flex: 1; overflow-y: auto; padding: 16px; background-color: #1a202c; border-radius: 8px; margin-bottom: 1rem;">
+          <% @messages.each do |message| %>
+            <div style="padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; <%= message.user_id == current_user.id ? 'background-color: #3182ce; text-align: right;' : 'background-color: #2d3748; text-align: left;' %>">
+              <%= render partial: 'messages/message', locals: { message: message } %>
+            </div>
+          <% end %>
+        </div>
+        <div style="margin-top: 1rem;">
+          <%= form_with model: [@chat_room, @chat_room.messages.new], method: :post, local: true do |form| %>
+            <div style="margin-bottom: 0.5rem;">
+              <%= form.hidden_field :recipient_id, value: @recipient.id %>
+              <%= form.text_area :body, placeholder: "Type your message here", style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #1a202c; color: #ffffff;" %>
+            </div>
+            <%= form.submit "Send", style: "background-color: #3182ce; color: white; padding: 0.75rem 1.5rem; border-radius: 0.25rem; border: none; cursor: pointer;" %>
+          <% end %>
+        </div>
+      <% else %>
+        <p>Recipient not found.</p>
+      <% end %>
     </div>
   </div>
   <%= render 'partials/footer' %>
