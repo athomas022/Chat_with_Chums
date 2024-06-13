@@ -1,15 +1,23 @@
-<body>
+<body style="background-color: #1a202c; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 16px;">
   <%= render 'partials/navbar' %>
-<h2>Log in</h2>
-<%= form_with url: login_path, method: :post, local: true do |f| %>
-  <div>
-    <%= f.text_field :username, label: 'Username',  placeholder: 'Your username here' %>
+  <div style="width: 100%; max-width: 600px; background-color: #2d3748; padding: 16px; border-radius: 8px; box-sizing: border-box; margin: 0 auto;">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem; text-align: center;">Log in</h2>
+    <%= form_with url: login_path, method: :post, local: true, scope: :session do |f| %>
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :username, 'Username', style: "display: block; margin-bottom: 0.5rem;" %>
+        <%= f.text_field :username, placeholder: 'Your username here', style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #2d3748; color: #ffffff;" %>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :password, 'Password', style: "display: block; margin-bottom: 0.5rem;" %>
+        <%= f.password_field :password, placeholder: 'Your password here', autocomplete: "current-password", style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #2d3748; color: #ffffff;" %>
+      </div>
+      <div style="text-align: center;">
+        <%= f.submit "Login", style: "background-color: #3182ce; color: white; padding: 0.75rem 1.5rem; border-radius: 0.25rem; border: none; cursor: pointer;" %>
+      </div>
+    <% end %>
+    <div style="text-align: center; margin-top: 1rem;">
+      <%= link_to 'Sign up', new_user_path, style: "color: #3182ce; text-decoration: none;" %>
+    </div>
   </div>
-  <div>
-    <%= f.password_field :password, label: 'Password',  autocomplete: "username" %>
-  </div>
-  <%= f.submit "Login in" %>
-  <%= link_to 'Sign up', new_user_path %>
-<% end %>
-<%= render 'partials/footer' %>
+  <%= render 'partials/footer' %>
 </body>
