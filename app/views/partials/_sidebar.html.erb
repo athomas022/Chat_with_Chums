@@ -1,13 +1,14 @@
-<div style="padding: 10px;">
-  <div>
+
+<div style="padding: 16px;">
+  <div style="margin-bottom: 16px;">
     <%= form_tag(chat_room_path(@chat_room), method: :get) do %>
-      <%= text_field_tag(:keyword, params[:keyword], placeholder: "Search for user by name") %>
-      <%= submit_tag("Search") %>
+      <%= text_field_tag(:keyword, params[:keyword], placeholder: "Search for user by name", style: "width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #1a202c; color: #ffffff; margin-bottom: 0.5rem;") %>
+      <%= submit_tag("Search", style: "background-color: #3182ce; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer;") %>
     <% end %>
-    <%= link_to "Clear search", chat_room_path(@chat_room) %>
+    <%= link_to "Clear search", chat_room_path(@chat_room), style: "display: inline-block; margin-top: 0.5rem; color: #3182ce; text-decoration: none;" %>
   </div>
   <% @users.each do |user| %>
-    <div style="height: 70px; border-bottom: 1px solid #e7ebee; position: relative; padding: 10px; display: flex; align-items: center;">
+    <div style="height: 70px; border-bottom: 1px solid #e7ebee; position: relative; padding: 10px; display: flex; align-items: center; background-color: #2d3748; border-radius: 8px; margin-bottom: 8px;">
       <p style="margin: 0; padding: 0; width: 200px;">
         <strong style="font-weight: 600; font-size: 15px; color: #597a96;"><%= user.name %></strong><br>
         <span style="font-size: 13px; font-weight: 400; color: #aab8c2;">
@@ -16,10 +17,13 @@
       </p>
       <div class='user-status' style="background: <%= user.is_online ? '#26c281' : '#aab8c2' %>; border-radius: 50%; width: 9px; height: 9px; position: absolute; top: 31px; right: 17px;"></div>
       <div>
-      <%= link_to 'Add to friends', add_friend_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
-      <% if user != current_user %>
-      <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
-      <% end %>
+        <%= link_to 'Add to friends', add_friend_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
+        <% if user != current_user %>
+          <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
+        <% end %>
       </div>
     </div>
   <% end %>
+</div>
+
+
