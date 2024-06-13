@@ -1,18 +1,18 @@
-<body>
+<body style="background-color: #1a202c; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 16px;">
 <%= render 'partials/navbar' %>
-<h1>Sign Up form</h1>
+<h1 style="font-size: 2rem; margin-bottom: 1rem;">Sign Up form</h1>
 <%= form_with model: @user, url: users_path, method: :post, local: true do |f| %>
-  <div>
-    <div>
+  <div style="width: 100%; max-width: 600px; background-color: #2d3748; padding: 16px; border-radius: 8px; box-sizing: border-box; margin: 0 auto;">
+    <div style="margin-bottom: 1rem;">
       <%= f.text_field :name, label: 'Name', placeholder: 'Your name here' %>
     </div>
-    <div>
+    <div style="margin-bottom: 1rem;">
       <%= f.text_field :username, label: 'Username', placeholder: 'Your username here' %>
     </div>
-    <div>
+    <div style="margin-bottom: 1rem;">
       <%= f.password_field :password, label: 'Password'%>
     </div>
-    <div>
+    <div style="margin-bottom: 1rem;">
       <%= f.select :personality_type, options_for_select([
           ["ISTJ - The Inspector", "ISTJ"],
           ["ISFJ - The Protector", "ISFJ"],
