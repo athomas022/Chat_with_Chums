@@ -17,7 +17,9 @@
       <div class='user-status' style="background: <%= user.is_online ? '#26c281' : '#aab8c2' %>; border-radius: 50%; width: 9px; height: 9px; position: absolute; top: 31px; right: 17px;"></div>
       <div>
       <%= link_to 'Add to friends', add_friend_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
-        <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
+      <% if user != current_user %>
+      <%= link_to 'Start DM', start_chat_with_path(user.id), method: :post, style: 'margin-left: auto; padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; color: #fff; background-color: #007bff; border: none; border-radius: 5px;' %>
+      <% end %>
       </div>
     </div>
   <% end %>

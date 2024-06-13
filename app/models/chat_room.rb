@@ -7,7 +7,7 @@ class ChatRoom < ApplicationRecord
     validate :direct_message_limit, if: -> { direct_message? }
 
     def direct_message_limit
-        if users.count != 2
+        if users_id.count != 2
             errors.add(:base, 'Direct messaging only available between 2 users')
         end
     end
@@ -16,9 +16,9 @@ class ChatRoom < ApplicationRecord
         Rails.logger.info "Checking chat room existence between #{user1.id} and #{user2.id} with direct_message: #{direct_message}"
         chat_room = ChatRoom.joins(:participants)
                             .where(direct_message: direct_message)
-                            .where(participants: { user_id: [user1.id, user2.id] })
+                            .where("users_id @> ARRAY[?]::integer[]", [user1.id, user2.id])
                             .group('chat_rooms.id')
-                            .having('COUNT(participants.user_id) = 2')
+                            .having('COUNT(users_id) = 2')
                             .limit(1)
                             .first
         Rails.logger.info "Chat room existence check result: #{chat_room.inspect}"

@@ -1,16 +1,22 @@
 <body>
   <%= render 'partials/navbar' %>
   <div class='container'>
-    <div class='chat'>
-    <% @messages.each do |message| %>
+    <div>
+      <h3> Chatting with <strong> <%= @recipient.name %></strong> </h3>
+      <div class='chat'>
+        <% @messages.each do |message| %>
+          <div>
             <%= render partial: 'messages/message', locals: { message: message } %>
-     <% end %>
-    </div>
-    <div class='messages-form'>
-    <%= form_with url: chat_with_path(@recipient), method: :post, local: true do |form| %>
-        <%= form.text_area :body, placeholder: "Type your message here" %>
-        <%= form.submit "Send" %>
-      <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class='messages-form'>
+        <%= form_with model: [@chat_room, @chat_room.messages.new], method: :post, local: true do |form| %>
+          <%= form.hidden_field :recipient_id, value: @recipient.id %>
+          <%= form.text_area :body, placeholder: "Type your message here" %>
+          <%= form.submit "Send" %>
+        <% end %>
+      </div>
     </div>
   </div>
   <%= render 'partials/footer' %>
