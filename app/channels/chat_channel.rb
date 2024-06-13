@@ -1,3 +1,4 @@
+
 class ChatChannel < ApplicationCable::Channel
   def subscribed
     chat_room = ChatRoom.find(params[:chat_room_id])
@@ -7,3 +8,4 @@ class ChatChannel < ApplicationCable::Channel
   def unsubscribed
   end
 end
+

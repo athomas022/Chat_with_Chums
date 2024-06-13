@@ -31,13 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         received: function(data) {
           const chatRoomElement = document.getElementById('chat-room');
           if (chatRoomElement) {
-            chatRoomElement.insertAdjacentHTML('beforeend', `<div class="message">${data.username}: ${data.body}</div>`);
+            chatRoomElement.insertAdjacentHTML('beforeend', data.message_html);
           }
         }
       }
     );
   }
 });
-
-
-
