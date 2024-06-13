@@ -8,21 +8,24 @@ module ApplicationCable
 
     private
 
-    def find_verified_user
-      user_id = session[:current_user_id]
-      User.find_by(id: user_id) if user_id
-    end
-      # def find_verified_user
-      #   token = request.headers[:HTTP_AUTHORIZATION]
-      #   if token.present?
-      #     decoded_token = decode_jwt(token)
-      #     if decoded_token && (user_id = decoded_token["id"])
-      #       return User.find_by(id: user_id)
-      #     end
-      #   else
-      #     reject_unauthorized_connection
-      #   end
-      # end
+    # def find_verified_user
+    #   user_id = session[:current_user_id]
+    #   User.find_by(id: user_id) if user_id
+    # end
+      def find_verified_user
+        token = request.params[:token]
+        decoded_token = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'], true, { algorithm: 'HS256' })
+        user_id = decoded_token[0]['sub']
+
+
+          if verified_user = User.find_by(id: user_id)
+            verified_user
+          else
+            reject_unauthorized_connection
+          end
+          rescue JWT::DecodeError
+           reject_unauthorized_connection
+        end
       
       #   def decode_jwt(token)
       #     begin
