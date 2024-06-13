@@ -1,30 +1,38 @@
-<body>
-<%= render 'partials/navbar' %>
-<h1>Chat Rooms</h1>
-  <div>
-    <%= form_tag(chat_rooms_path, method: :get) do %>
-      <%= text_field_tag(:keyword, params[:keyword], placeholder: "Search for keyword") %>
-      <%= submit_tag("Search") %>
-    <% end %>
-    <%= link_to "Clear search", chat_rooms_path %>
-  </div>
-  <div >
-    <% @chat_rooms.each do |chat_room| %>
-        <div>
-          <h1>Name: <%= chat_room.name %></h1>
-          <h2><%= chat_room.announcements %> </h2>
-          <h3>User count: <%= chat_room.users.count %></h3>
-          <% if chat_room.users_id.include?(current_user.id) %>
-          <span>Joined</span>
-          <%= button_to 'Leave', leave_chat_room_path(chat_room), method: :delete %>
-          <%= link_to 'View', chat_room_path(chat_room) %> 
-        <% else %>
-          <%= button_to 'Join', join_chat_room_path(chat_room), method: :post %>
-          <%= link_to 'View', chat_room_path(chat_room) %> 
+<body style="background-color: #1a202c; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 16px;">
+  <%= render 'partials/navbar' %>
+  <div style="width: 100%; max-width: 800px; background-color: #2d3748; padding: 16px; border-radius: 8px; box-sizing: border-box; margin: 0 auto; color: #e3e3e3;">
+    <h1 style="font-size: 2rem; margin-bottom: 1rem; text-align: center;">Chat Rooms</h1>
+    <div style="margin-bottom: 1rem;">
+      <%= form_tag(chat_rooms_path, method: :get, style: "display: flex; flex-direction: column; align-items: center;") do %>
+        <%= text_field_tag(:keyword, params[:keyword], placeholder: "Search for keyword", style: "width: 100%; max-width: 600px; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #cbd5e0; background-color: #2d3748; color: #ffffff; margin-bottom: 0.5rem;") %>
+        <%= submit_tag("Search", style: "background-color: #3182ce; color: white; padding: 0.75rem 1.5rem; border-radius: 0.25rem; border: none; cursor: pointer;") %>
+      <% end %>
+      <%= link_to "Clear search", chat_rooms_path, style: "display: block; text-align: center; color: #3182ce; text-decoration: none; margin-top: 0.5rem;" %>
+    </div>
+    <div style="margin-bottom: 1rem;">
+      <% @chat_rooms.each do |chat_room| %>
+        <% if chat_room.name.present? %>
+          <div style="margin-bottom: 1rem; padding: 1rem; background-color: #1a202c; border-radius: 8px; box-sizing: border-box;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Name: <%= chat_room.name %></h2>
+            <p style="margin-bottom: 0.5rem;"><%= chat_room.announcements %></p>
+            <p style="margin-bottom: 0.5rem;">User count: <%= chat_room.users.count %></p>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <% if chat_room.users_id.include?(current_user.id) %>
+                <span style="color: #48bb78; margin-right: 0.5rem;">Joined</span>
+                <%= button_to 'Leave', leave_chat_room_path(chat_room), method: :delete, style: 'background-color: #e53e3e; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer;' %>
+                <%= link_to 'View', chat_room_path(chat_room), style: 'background-color: #3182ce; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none;' %>
+              <% else %>
+                <%= button_to 'Join', join_chat_room_path(chat_room), method: :post, style: 'background-color: #48bb78; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer;' %>
+                <%= link_to 'View', chat_room_path(chat_room), style: 'background-color: #3182ce; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none;' %>
+              <% end %>
+            </div>
+          </div>
         <% end %>
-        <div>
-    <% end %>
+      <% end %>
+    </div>
+    <div style="text-align: center; margin-top: 1rem;">
+      <%= link_to 'Create a new ChatRoom', new_chat_room_path, style: 'background-color: #3182ce; color: white; padding: 0.75rem 1.5rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none;' %>
+    </div>
   </div>
-  <button><%= link_to 'Create a new ChatRoom', new_chat_room_path %></button>
-<%= render 'partials/footer' %>
+  <%= render 'partials/footer' %>
 </body>
