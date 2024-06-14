@@ -1,35 +1,35 @@
 <body style="background-color: #1a202c; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 16px; justify-content: center;">
   <%= render 'partials/navbar' %>
   <div style="width: 100%; max-width: 800px; padding: 16px; box-sizing: border-box; margin: 0 auto; color: #e3e3e3; background-color: #2d3748; border-radius: 8px; justify-content: center;">
-      <h1 style="font-size: 2rem; margin-bottom: 1rem;">My Profile</h1>
-      <h3 style="margin-bottom: 1rem;" >Username: <%= @user.username %></h3>
-      <h3 style="margin-bottom: 1rem;">Name: <%= @user.name%></h3>
-      <h3 style="margin-bottom: 1rem;">Personality: <%= @user.personality_type %></h3>
-      <h3 style="margin-bottom: 1rem;">Interests: <%= @user.interests %></h3>
-      <h3 style="margin-bottom: 1rem;">Zipcode: <%= @user.zipcode %></h3>
-      <h3 style="margin-bottom: 1rem;">Bio: <%= @user.bio %></h3>
-      <h3 style="margin-bottom: 1rem;">My Chat Rooms:</h3>
-      <% @user.chat_rooms.each do |chat_room| %>
-       <ul style="list-style-type: circle; color: #e3e3e3;" ">
+    <h1 style="font-size: 2rem; margin-bottom: 1rem;">My Profile</h1>
+    <h3 style="margin-bottom: 1rem;">Username: <%= @user.username %></h3>
+    <h3 style="margin-bottom: 1rem;">Name: <%= @user.name %></h3>
+    <h3 style="margin-bottom: 1rem;">Personality: <%= @user.personality_type %></h3>
+    <h3 style="margin-bottom: 1rem;">Interests: <%= @user.interests %></h3>
+    <h3 style="margin-bottom: 1rem;">Zipcode: <%= @user.zipcode %></h3>
+    <h3 style="margin-bottom: 1rem;">Bio: <%= @user.bio %></h3>
+    <h3 style="margin-bottom: 1rem;">My Chat Rooms:</h3>
+    <% @user.chat_rooms.each do |chat_room| %>
+      <ul style="list-style-type: circle; color: #e3e3e3;">
         <li style="margin-bottom: 0.75rem;">
           <%= link_to chat_room.name, chat_room, style: "color: #a8d0e6;" %>
         </li>
       </ul>
-      <% end %>
-      <h3 style="list-style-type: circle; margin-bottom: 1rem;">My Friends:</h3>
-      <% @user.friends.each do |friend| %>
-       <ul style="color: #e3e3e3;""> 
+    <% end %>
+    <h3 style="list-style-type: circle; margin-bottom: 1rem;">My Friends:</h3>
+    <% @user.friends.each do |friend| %>
+      <ul style="color: #e3e3e3;">
         <li style="margin-bottom: 0.75rem;">
           <%= link_to friend.username, user_path(friend), style: "color: #a8d0e6;" %>
         </li>
-        </ul>
-      <% end %>
-      <% if @user == current_user %>
-        <div style="margin-top: 1rem;">
-          <button><%= link_to 'Edit', edit_user_path(@user) %></button>
-          <button><%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %></button>
-      <% end %>
-    </div>
+      </ul>
+    <% end %>
+    <% if @user == current_user %>
+      <div style="margin-top: 1rem;">
+        <%= link_to 'Edit', edit_user_path(@user), style: 'background-color: #3182ce; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none; margin-right: 0.5rem;' %>
+        <%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, style: 'background-color: #e53e3e; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none;' %>
+      </div>
+    <% end %>
   </div>
-<%= render 'partials/footer' %>
+  <%= render 'partials/footer' %>
 </body>

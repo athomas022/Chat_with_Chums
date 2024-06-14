@@ -53,18 +53,19 @@ class UsersController < ApplicationController
   def destroy
     begin
       @user = User.find(params[:id])
-      if @user.destroy
-        respond_to do |format|
-          format.html { redirect_to root_path }
-          format.json { render json: { message: "Successfully deleted the user" }, status: :ok }
+      Participant.where(user_id: @user.id).destroy_all  
+        if @user.destroy
+          respond_to do |format|
+            format.html { redirect_to root_path }
+            format.json { render json: { message: "Successfully deleted the user" }, status: :ok }
+          end
+        else
+          render json: { error: "Could not delete user" }, status: :unprocessable_entity
         end
-      else
-        render json: { error: "Could not delete user" }, status: :unprocessable_entity
+      rescue StandardError => e
+        Rails.logger.warn("Error deleting data: #{e.message}")
       end
-    rescue StandardError => e
-      Rails.logger.warn("Error deleting data: #{e.message}")
     end
-  end
 
   def add_friends
     @user = current_user
