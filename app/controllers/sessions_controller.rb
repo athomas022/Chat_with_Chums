@@ -38,7 +38,6 @@ class SessionsController < ApplicationController
   def logout_user
     reset_session
     cookies.delete(:jwt_token)
-    @current_user_id = nil
   end
 
   def session_params
