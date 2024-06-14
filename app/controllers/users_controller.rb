@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      reset_session if @user.id == current_user.id
       respond_to do |format|
         format.html { redirect_to user_path(@user) }
         format.json { render json: { user: @user, token: token }, status: :ok }
