@@ -35,7 +35,7 @@ class MessagesController < ApplicationController
     if @message.save
       respond_to do |format|
         format.html { redirect_to @chat_room, notice: 'Message was successfully created.' }
-        format.js # This will render create.js.erb if needed
+        format.js
       end
     else
       respond_to do |format|
