@@ -3,13 +3,13 @@
   <div style="box-sizing: border-box; padding: 16px; float: unset; height: 100%; width: 100%">
     <div style="flex: 1; background-color: #2d3748; padding: 16px; border-radius: 8px; display: flex; flex-direction: column; justify-content: space-between; margin-right: 16px;">
       <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
-        <div>
-          <%= link_to 'Go back to chats', chat_rooms_path, style: 'background-color: #3182ce; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none; margin-right: 0.5rem;' %>
-          <% if @chat_room.admin_id == current_user.id %>
-            <%= link_to 'Edit', edit_chat_room_path(@chat_room), style: 'background-color: #3182ce; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none; margin-right: 0.5rem;' %>
-            <%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' }, style: 'background-color: #e53e3e; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none;' %>
-          <% end %>
-        </div>
+      <div>
+        <%= link_to 'Go back to chats', chat_rooms_path, style: 'background-color: #3182ce; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none; margin-right: 0.5rem;' %>
+        <% if @chat_room.admin_id == current_user.id && @chat_room.direct_message == false %>
+          <%= link_to 'Edit', edit_chat_room_path(@chat_room), style: 'background-color: #3182ce; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none; margin-right: 0.5rem;' %>
+          <%= link_to 'Delete', chat_room_path(@chat_room), method: :delete, data: { confirm: 'Are you sure?' }, style: 'background-color: #e53e3e; color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; cursor: pointer; text-decoration: none;' %>
+        <% end %>
+      </div>
       </div>
       <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">Welcome to <%= @chat_room.name %></h1>
       <div style="flex: 1; overflow-y: auto; padding: 16px; background-color: #1a202c; border-radius: 8px;">
